@@ -1,45 +1,44 @@
-.app-sidenav-container {
+.app-sidenav-container{
   flex: 1;
   height: 100%;
   min-height: 100%;
   position: fixed;
   width: 100%;
   min-width: 100%;
+  background-color: #003c7412;
 }
-.app-sidenav-content {
+.app-sidenav-content{
   display: flex;
   height: 100%;
   flex-direction: column;
 }
-.app-sidenav {
+.app-sidenav{
   width: 140px;
 }
-.right {
-  float: right;
+.right{
+float: right;
 }
-.bg-header {
-  background-color: rgb(17, 70, 70);
+.bg-header{
+  background-color: rgb(0, 60, 116);
   color: white;
 }
-.white-text {
-  color: white;
+.white-text{
+color: white;
 }
-.ml-1 {
+.ml-1{
   margin-left: 1vw;
 }
 .btn-menu {
   display: none;
   min-width: 56px;
-}
 
+}
+section {
+}
 @media (max-width: 950px) {
   .btn-menu {
     display: flex;
     justify-content: center;
     position: absolute;
   }
-}
-
-.bg-sgc {
-  background-color: #003c7412;
 }

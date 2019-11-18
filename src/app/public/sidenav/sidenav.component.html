@@ -1,0 +1,27 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav
+   #sidenav
+   [opened]="telaMenor() ? 'false' : 'true'"
+   [mode]="telaMenor() ? 'over' : 'side'"
+   class="app-sidenav bg-header">
+    <mat-toolbar class="bg-header">Iron SGC</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item class="white-text" [routerLink]="['/dashboard-tarefa']">
+        <span class="">Minhas tarefas</span>
+      </a>
+      <a mat-list-item class="white-text" [routerLink]="['/lista-tarefas']">
+        <span class="">Pendentes</span>
+      </a>
+      <a mat-list-item class="white-text" [routerLink]="['/concluidas']">
+        <span class="">Concluídas</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="app-sidenav-content">
+      <button mat-icon-button class="btn-menu" (click)="sidenav.toggle()" >
+          <mat-icon aria-hidden="false" aria-label="Example user verified icon">menu</mat-icon>
+      </button>
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

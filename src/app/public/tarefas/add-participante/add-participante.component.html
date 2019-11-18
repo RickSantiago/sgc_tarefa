@@ -1,0 +1,55 @@
+<p>add-participante works!</p>
+<h2 mat-dialog-title>
+  Olá, vamos adicionar novos participantes?
+</h2>
+<mat-dialog-content>
+
+  <mat-form-field
+    style="width: 100%;"
+    appearance="outline"
+  >
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let participante of chipParticipanteSelecionado"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeParticipante(participante)"
+        value="{{ participante.id }}"
+        name="participanteReuniao"
+        class="bg-participante"
+      >
+        {{ participante.nome }}
+
+        <mat-icon matChipRemove *ngIf="removivel">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Adicionar participante"
+        #participanteInput
+        [formControl]="participanteControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addParticipante($event)"
+      />
+      <mat-icon matSuffix>group_add</mat-icon>
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="participanteSelecionado($event)"
+    >
+      <mat-option
+        *ngFor="let participanteNome of participanteFiltrado | async"
+        [value]="participanteNome"
+      >
+        {{ participanteNome }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-button (click)="voltarDialog()">Voltar</button>
+  <button class="btn-sucesso" mat-button (click)="salvar(data)">
+    Criar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,102 @@
+<h2 mat-dialog-title>
+  Olá, vamos criar uma tarefa?
+</h2>
+<mat-dialog-content>
+  <mat-slide-toggle class="text-center" [(ngModel)]="data.isRotina"
+    >Esta é uma tarefa de rotina?
+  </mat-slide-toggle>
+
+  <mat-form-field appearance="outline" style="width: 100%; margin-top: 1vh;">
+    <mat-label>Titulo</mat-label>
+    <input matInput
+     placeholder="Qual o titulo?"
+     [(ngModel)]="data.titulo"
+     required/>
+
+    <mat-icon matSuffix>edit</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Descrição</mat-label>
+    <textarea
+      matInput
+      placeholder="Descreva a atividade"
+      [(ngModel)]="data.descricao"
+    >
+    </textarea>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 100%;">
+
+    <mat-chip-list #chipListAtividade aria-label="Atividade selecao">
+      <mat-chip
+        *ngFor="let atividade of atividades"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(atividade)"
+        class="bg-atividade"
+      >
+        {{ atividade.descricao }}
+        <mat-icon matChipRemove color="warn" *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+
+      <input
+        placeholder="Digite a atividade e aperte ENTER"
+        [matChipInputFor]="chipListAtividade"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)"
+      />
+      <mat-icon matSuffix>schedule</mat-icon>
+    </mat-chip-list>
+  </mat-form-field>
+  <mat-form-field
+    style="width: 100%;"
+    #formAtividade="ngForm"
+    [formGroup]="formDialogTarefa"
+    appearance="outline"
+  >
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let participante of chipParticipanteSelecionado"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeParticipante(participante)"
+        value="{{ participante.id }}"
+        name="participanteReuniao"
+        class="bg-participante"
+      >
+        {{ participante.nome }}
+
+        <mat-icon matChipRemove *ngIf="removivel">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Adicionar participante"
+        #participanteInput
+        [formControl]="participanteControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addParticipante($event)"
+      />
+      <mat-icon matSuffix>group_add</mat-icon>
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="participanteSelecionado($event)"
+    >
+      <mat-option
+        *ngFor="let participanteNome of participanteFiltrado | async"
+        [value]="participanteNome"
+      >
+        {{ participanteNome }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-button (click)="voltarDialog()">Voltar</button>
+  <button class="btn-sucesso" mat-button (click)="salvar(data)">
+    Criar
+  </button>
+</mat-dialog-actions>
