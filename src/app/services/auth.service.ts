@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { EnvService } from './env.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class AuthService {
 
   public idPessoa: any;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public envService: EnvService) { }
 
 
   recebeDadosLogin(): Observable<any> {
 
-    return this.http.get("http://177.126.81.87:8089/sgc/autenticacao/retornaDadosSessao").pipe(
+    return this.http.get(`${this.envService.API_URL}autenticacao/retornaDadosSessao`).pipe(
       tap(response => {
         const { userData } = response
         this.idPessoa = userData.map(item => { this.idPessoa = item })

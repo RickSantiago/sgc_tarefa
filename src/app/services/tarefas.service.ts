@@ -1,3 +1,4 @@
+import { EnvService } from './env.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
@@ -12,13 +13,13 @@ export class TarefasService {
 
 
 
-  constructor( private _snackBar: MatSnackBar, public authService: AuthService, public http: HttpClient) {
+  constructor( private _snackBar: MatSnackBar, public authService: AuthService, public http: HttpClient, public envService: EnvService) {
 
   }
 
 
   retornaTarefasTitular(idPessoa): Observable<any> {
-    return this.http.get(`http://177.126.81.87:8089/sgc/tarefa/retornaTarefasTitular?idPessoa=${idPessoa}`)
+    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefasTitular?idPessoa=${idPessoa}`)
       .pipe(
         tap(response => response)
       )
@@ -32,7 +33,7 @@ export class TarefasService {
     }
 
   removeParticipante(idParticipante, idTarefa): Observable<any>{
-      return this.http.post(`http://177.126.81.87:8089/sgc/tarefa/removeParticipante`, {
+      return this.http.post(`${this.envService.API_URL_TAREFA}removeParticipante`, {
         idParticipante: idParticipante,
         idTarefa: idTarefa
       }).pipe(
@@ -51,7 +52,7 @@ export class TarefasService {
     isRotina:boolean,
     participantesSelecionados:any,
     atividadesDaTarefa:any): Observable<any> {
-    return this.http.post<any>(`http://177.126.81.87:8089/sgc/tarefa/criarTarefa`, {
+    return this.http.post<any>(`${this.envService.API_URL_TAREFA}criarTarefa`, {
       idTitular: idTitular,
       titulo: titulo,
       descricao: descricao,
@@ -68,7 +69,7 @@ export class TarefasService {
   }
 
   addParticipante(idTarefa: number, participantesSelecionados: any): Observable<any> {
-   return  this.http.post<any>(`http://177.126.81.87:8089/sgc/tarefa/adiconaParticipante`, {
+   return  this.http.post<any>(`${this.envService.API_URL_TAREFA}adiconaParticipante`, {
     idTarefa: idTarefa,
     participantes: participantesSelecionados,
 

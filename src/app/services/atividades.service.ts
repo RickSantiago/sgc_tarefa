@@ -2,19 +2,20 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { EnvService } from './env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtividadesService {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public envService: EnvService) { }
 
   criaAtividade(
     idTarefa: number,
     idResponsavel:number,
     descricao: string ):Observable<any>{
-      return this.http.post<any>("http://177.126.81.87:8089/sgc/tarefa/criaAtividade", {
+      return this.http.post<any>(`${this.envService.API_URL_TAREFA}criaAtividade`, {
         idTarefa: idTarefa,
         responsavel: idResponsavel,
         descricao: descricao
@@ -33,7 +34,7 @@ export class AtividadesService {
 
 
   finalizaAtividade(idAtividade):Observable<any>{
-    return this.http.post<any>("http://177.126.81.87:8089/sgc/tarefa/finalizaAtividade", {
+    return this.http.post<any>(`${this.envService.API_URL_TAREFA}finalizaAtividade`, {
       idAtividade: idAtividade,
     },
     {
@@ -48,7 +49,7 @@ export class AtividadesService {
   }
 
   desfinalizaAtividade(idAtividade):Observable<any>{
-    return this.http.post<any>("http://177.126.81.87:8089/sgc/tarefa/desfazerFinalizacaoAtividade", {
+    return this.http.post<any>(`${this.envService.API_URL_TAREFA}desfazerFinalizacaoAtividade`, {
       idAtividade: idAtividade,
     },
     {
