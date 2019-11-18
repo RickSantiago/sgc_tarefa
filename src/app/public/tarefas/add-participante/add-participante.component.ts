@@ -1,3 +1,4 @@
+import { EnvService } from './../../../services/env.service';
 import { DashboardTarefaComponent } from './../dashboard-tarefa/dashboard-tarefa.component';
 import {Component, Inject, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -38,6 +39,7 @@ export class AddParticipanteComponent implements OnInit {
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   constructor(
+    public envService: EnvService,
     public http: HttpClient,
     public fb: FormBuilder,
     public dialogRef: MatDialogRef<DashboardTarefaComponent>,
@@ -58,7 +60,7 @@ export class AddParticipanteComponent implements OnInit {
 
 
     public retornaListaParticipantes(){
-      this.http.get(`http://localhost:9003/pessoa/retornaParticipantes`).subscribe(
+      this.http.get(`${this.envService.API_URL}pessoa/retornaParticipantes`).subscribe(
        response => {
         this.todosParticipantes = response
        },
