@@ -24,6 +24,14 @@ export class TarefasService {
         tap(response => response)
       )
   }
+
+  retornaTarefasParticipante(idPessoa): Observable<any> {
+    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaResponsavel?idPessoa=${idPessoa}`)
+      .pipe(
+        tap(response => response)
+      )
+  }
+
   snackRemoveParticipante(message: string, action: string) {
    this._snackBar.open(message, action, {
         duration: 3000
@@ -69,7 +77,7 @@ export class TarefasService {
   }
 
   addParticipante(idTarefa: number, participantesSelecionados: any): Observable<any> {
-   return  this.http.post<any>(`${this.envService.API_URL_TAREFA}adiconaParticipante`, {
+   return  this.http.post<any>(`${this.envService.API_URL_TAREFA}adicionaParticipante`, {
     idTarefa: idTarefa,
     participantes: participantesSelecionados,
 

@@ -2,10 +2,10 @@
 // @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 /* Add application styles & imports to this file! */
-// @import '~@angular/material/theming';
+@import '~@angular/material/theming';
 
 // always include only once per project
-// @include mat-core();
+@include mat-core();
 
 // import our custom theme
 // @import 'my-theme.scss';
@@ -17,8 +17,27 @@
 //   @include angular-material-theme($my-theme);
 // }
 
+$iron-sgc-primary: mat-palette($mat-indigo);
+$iron-sgc-accent: mat-palette($mat-grey, A200, A100, A400);
+$iron-sgc-blue: mat-palette($mat-blue, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$iron-sgc-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$iron-sgc-theme: mat-light-theme($iron-sgc-primary, $iron-sgc-accent, $iron-sgc-warn );
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($iron-sgc-theme);
+
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif; text-rendering: optimizeLegibility;;
+}
+
+mat-tab-label {
+  opacity: 1 !important;
 }

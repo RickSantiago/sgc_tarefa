@@ -27,6 +27,7 @@ import {
   MatDialogModule,
   MatSlideToggleModule,
   MatTooltipModule,
+  MatBadgeModule,
   MAT_DATE_LOCALE
 
 } from '@angular/material';
@@ -60,7 +61,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSnackBarModule,
     MatDialogModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBadgeModule
 
   ],
   exports: [
@@ -90,7 +92,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSnackBarModule,
     MatDialogModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBadgeModule
 
   ],
   providers: [

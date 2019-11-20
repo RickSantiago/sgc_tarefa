@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>
+  Olá, deseja editar essa atividade? <strong>{{data.descricao}}</strong>
+</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Descrição</mat-label>
+    <textarea
+      matInput
+      placeholder="Descreva a atividade"
+      [(ngModel)]="data.descricao"
+    >
+    </textarea>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+  <mat-form-field
+   #formAtividade="ngForm"
+  [formGroup]="formDialog" appearance="outline" style="width: 100%;">
+    <mat-label>
+      Deseja selecionar um responsavel?
+        <span *ngIf="data.responsavelAtual">Atual: {{data.responsavelAtual}}</span>
+    </mat-label>
+    <mat-select formControlName="idResponsavel" (change)="retornaResponsavel($event)">
+      <mat-option
+        *ngFor="let resp of data.participantes"
+         value={{resp.id}}
+      >
+        {{ resp.nome }}
+      </mat-option>
+    </mat-select>
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-button (click)="voltarDialog()">Voltar</button>
+  <button class="btn-sucesso" mat-button (click)="salvar(data)">
+    Editar
+  </button>
+</mat-dialog-actions>

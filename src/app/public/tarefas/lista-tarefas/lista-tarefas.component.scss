@@ -1,0 +1,243 @@
+.bg-content {
+  // background-image: radial-gradient(circle, #d8e6f2, #c3d9ee, #afcdea, #9bc0e7, #87b3e3);
+  background-color: cadetblue;
+}
+
+.white-text {
+  color: white;
+}
+.btn-add-person{
+  color: #003c74;
+}
+.btn-add-atv{
+  color: #3a068d;
+}
+.bg-info {
+  background-color: rgb(123, 143, 190);
+  color: white;
+}
+.bg-warn {
+  background-color: rgb(190, 167, 123);
+  color: white;
+}
+.bg-danger {
+  background-color: rgb(190, 133, 123);
+  color: white;
+}
+.bg-light {
+  background-color: rgb(235, 235, 235);
+  color: rgb(51, 51, 51);
+}
+.side-card {
+  min-height: 15vh;
+  height: 18vh;
+  min-width: 15vw;
+}
+.card-principal {
+  min-height: 40vh;
+  height: 60vh;
+  min-width: 15vw;
+  width: 35vw;
+}
+.bg-side-card {
+  background-color: rgb(111, 151, 111) !important;
+  color: white !important;
+}
+.mt-2 {
+  margin-top: 2vh !important;
+}
+.mt-4 {
+  margin-top: 4vh;
+}
+.mt-5 {
+  margin-top: 10vh;
+}
+.pb-2{
+  padding-bottom: 2vh;
+}
+.h-tarefa {
+  height: 120vh;
+  width: 90vw;
+}
+.h-card-tarefa {
+  height: 104vh;
+  width: 90vw;
+}
+.w-tarefa {
+  width: 90vw;
+  margin: 1vw;
+}
+.mt-7dot1 {
+  margin-top: 7.1vh;
+}
+.mb-2 {
+  margin-bottom: 2vh;
+}
+table {
+  width: 100%;
+}
+.mt-3n {
+  margin-top: -3vh;
+}
+.font-tiny {
+  font-weight: 500;
+}
+.bg-dark {
+  background-color: rgb(24, 24, 24);
+}
+.btn-menu {
+  display: none;
+  min-width: 56px;
+}
+.text-center {
+  text-align: center;
+}
+
+.text-upper{
+  text-transform: uppercase;
+}
+
+.btn-set-responsavel{
+  position: absolute;
+  right: 1.2vw;
+}
+
+@media (max-width: 950px) {
+  .title-tarefa {
+    margin-left: 4vw;
+  }
+}
+
+@media (max-width: 720px) {
+  .title-tarefa {
+    margin-left: 4vw;
+  }
+}
+@media (max-width: 650px) {
+  .title-tarefa {
+    //  padding-left: 8vw;
+    text-align: center;
+  }
+}
+.bg-add-atividade {
+  background-color: rgb(54, 139, 160);
+  color: white;
+}
+.bg-done-atividade {
+  background-color: rgb(54, 160, 110);
+  color: white;
+}
+ul {
+  list-style: none;
+  padding-inline-start: 0px;
+}
+.background-check-atv {
+  background-color: #06711b;
+}
+.btn-add-atividade {
+  float: right;
+  background: #26509ec4;
+  border-radius: 50%;
+  color: white;
+}
+.card-desc {
+  padding: 1vw;
+  border-radius: 5px;
+  background-color: rgb(235, 235, 235);
+}
+.font-icon-btn {
+  font-weight: bold;
+}
+.bg-card-task {
+  background-color: #ffffffcc;
+  color: #5828a5;
+}
+.font-stronger {
+  font-weight: bold;
+}
+
+.criar-tarefa {
+  margin-top: 25vh;
+  text-align: center;
+}
+.btn-sucesso {
+  background-color: rgba(166, 250, 173, 0.705);
+  color: green;
+}
+.size-button-criar {
+  min-width: 20vw;
+  height: 8vh;
+  font-size: 1.3rem;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.f-right {
+  float: right;
+}
+
+.btn-new-atv {
+  float: right;
+  bottom: 2px;
+  position: absolute;
+  margin-bottom: 2vh;
+  right: 0;
+  margin-right: 1vw;
+  background-color: #003c74;
+}
+.mat-tab-label {
+  color: white !important;
+}
+
+// side bar css
+.app-sidenav-container {
+  flex: 1;
+  height: 100%;
+  min-height: 100%;
+  position: fixed;
+  width: 100%;
+  min-width: 100%;
+  background-color: #003c7412;
+}
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+.app-sidenav {
+  width: 140px;
+}
+.right {
+  float: right;
+}
+.bg-header {
+  background-color: rgb(0, 60, 116);
+  color: white;
+}
+.white-text {
+  color: white;
+}
+
+.ml-1 {
+  margin-left: 1vw;
+}
+.btn-menu {
+  display: none;
+  min-width: 56px;
+}
+@media (max-width: 950px) {
+  .btn-menu {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+  }
+}
+.tool-responsavel{
+  background: #003c74 !important;
+}
+.hover-check:hover{
+  background: rgb(192, 192, 192);
+  border-radius: 10px;
+  width: 100%;
+}

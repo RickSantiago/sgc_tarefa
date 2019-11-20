@@ -1,3 +1,5 @@
+import { ListaTarefasComponent } from './../lista-tarefas/lista-tarefas.component';
+import { ResponsavelAtividadeComponent } from './../responsavel-atividade/responsavel-atividade.component';
 import { AddParticipanteComponent } from './../add-participante/add-participante.component';
 import { CriarTarefaComponent } from './../criar-tarefa/criar-tarefa.component';
 import { AtividadesService } from './../../../services/atividades.service';
@@ -6,7 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { TarefasService } from './../../../services/tarefas.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
@@ -18,12 +19,14 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-dashboard-tarefa',
   templateUrl: './dashboard-tarefa.component.html',
   styleUrls: ['./dashboard-tarefa.component.scss'],
-  // encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class DashboardTarefaComponent implements OnInit {
 
   private userSession: any;
   public tarefas: any = [];
+  public tarefasAtribuidas: any = [];
+  public selectedIndex = 0;
 
   public todosParticipantes: any = [];
   public chipParticipanteSelecionado: any = [];
@@ -53,6 +56,7 @@ export class DashboardTarefaComponent implements OnInit {
   idPessoaSession: string;
 
 
+
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
 
   constructor(
@@ -61,18 +65,36 @@ export class DashboardTarefaComponent implements OnInit {
     public authService: AuthService,
     public tarefasService: TarefasService,
     public atividadesServices: AtividadesService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public lisTarefaAtribuida: ListaTarefasComponent
+   ) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.retornaUsuario();
       this.retornaTarefasDoTitular();
-    }, 1000)
+      this.retornaTarefasAtividadeDoParticipante();
+    }, 500)
+
+    // setInterval(() => {
+    //   console.log('Atualizou')
+    //   this.retornaTarefasDoTitular();
+    // }, 5000);
 
   }
 
   telaMenor(){
     return this.mediaMatch.matches;
+  }
+
+  verificaTabs(tabSelecionada){
+      console.log(tabSelecionada);
+      if(tabSelecionada == 0){
+
+      }
+      if(tabSelecionada == 1){
+
+      }
   }
 
   retornaUsuario() {
@@ -92,6 +114,8 @@ export class DashboardTarefaComponent implements OnInit {
   }
 
   retornaTarefasDoTitular() {
+    // console.log('To aqui');
+
     this.tarefasService
       .retornaTarefasTitular(this.idPessoaSession).subscribe(
         data => {
@@ -106,8 +130,20 @@ export class DashboardTarefaComponent implements OnInit {
         }
       );
   }
+  retornaTarefasAtividadeDoParticipante() {
+    this.tarefasService
+      .retornaTarefasParticipante(this.idPessoaSession).subscribe(
+        data => {
+          const { tarefas } = data;
 
-
+          this.tarefasAtribuidas = tarefas;
+          this.isErrorTarefa = false
+        },
+        error => {
+          console.log(error)
+        }
+      );
+  }
 
   removeParticipanteTarefa(idParticipante, idTarefa){
       this.tarefasService.removeParticipante(idParticipante,
@@ -122,8 +158,8 @@ export class DashboardTarefaComponent implements OnInit {
       );
   }
 
-  marcaAtividadeCompleta(idAtividade){
-    this.atividadesServices.finalizaAtividade(idAtividade).subscribe(
+  marcaAtividadeCompleta(idAtividade, idTarefa){
+    this.atividadesServices.finalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
@@ -134,8 +170,8 @@ export class DashboardTarefaComponent implements OnInit {
     );
   }
 
-  desmarcaAtividadeCompleta(idAtividade){
-    this.atividadesServices.desfinalizaAtividade(idAtividade).subscribe(
+  desmarcaAtividadeCompleta(idAtividade, idTarefa){
+    this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
@@ -167,6 +203,43 @@ export class DashboardTarefaComponent implements OnInit {
         'idResponsavel: ', idResponsavel);
 
       this.atividadesServices.criaAtividade(idTarefa, idResponsavel, descricao).subscribe(
+        data => {
+          this.retornaTarefasDoTitular();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+    })
+  }
+
+  openDialogEditarAtividade(atv, participantes) {
+
+    console.log(atv);
+    console.log(participantes)
+
+
+    let dialogRef = this.dialog.open(ResponsavelAtividadeComponent, {
+      width: '90%',
+      data: {
+        idAtividade: atv.id, descricao: atv.descricao,
+        participantes: participantes, idResponsavel: this.idResponsavel,
+        responsavelAtual: atv.responsavel
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const { idAtividade, participantes, idResponsavel, descricao } = result
+
+      console.log(
+        'idATIVIDAE: ', idAtividade,
+        'Participante : ', participantes,
+        'idResponsavel: ', idResponsavel,
+        'Descricao: ', descricao);
+
+      this.atividadesServices.updateAtividade(idAtividade, idResponsavel, descricao).subscribe(
         data => {
           this.retornaTarefasDoTitular();
         },
@@ -232,8 +305,6 @@ export class DashboardTarefaComponent implements OnInit {
   }
 
   openDialogParticipante(idTarefa) {
-
-    console.log('ID TAREFA ', idTarefa)
 
     let dialogRef = this.dialog.open(AddParticipanteComponent, {
       width: '90%',

@@ -15,7 +15,8 @@ import { ListaTarefasComponent } from './public/tarefas/lista-tarefas/lista-tare
 import { DashboardTarefaComponent } from './public/tarefas/dashboard-tarefa/dashboard-tarefa.component';
 import { CriaAtividadeComponent } from './public/tarefas/cria-atividade/cria-atividade.component';
 import '../styles.scss';
-import { AddParticipanteComponent } from './public/tarefas/add-participante/add-participante.component'
+import { AddParticipanteComponent } from './public/tarefas/add-participante/add-participante.component';
+import { ResponsavelAtividadeComponent } from './public/tarefas/responsavel-atividade/responsavel-atividade.component'
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -29,8 +30,14 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     DashboardTarefaComponent,
     CriaAtividadeComponent,
     AddParticipanteComponent,
+    ResponsavelAtividadeComponent,
   ],
-  entryComponents: [CriaAtividadeComponent, CriarTarefaComponent, AddParticipanteComponent],
+  entryComponents: [
+    CriaAtividadeComponent,
+    CriarTarefaComponent,
+     AddParticipanteComponent,
+    ResponsavelAtividadeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,9 +48,12 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     ReactiveFormsModule,
     HttpClientModule,
     FlexLayoutModule
-
   ],
-  providers: [],
+  exports: [
+  ],
+  providers: [
+    ListaTarefasComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

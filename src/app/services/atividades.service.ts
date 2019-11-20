@@ -29,17 +29,30 @@ export class AtividadesService {
           return result
         })
       )
+
   }
 
+  updateAtividade(
+    idAtividade: number,
+    idResponsavel:number,
+    descricao: string):Observable<any>{
+      return this.http.post<any>(`${this.envService.API_URL_TAREFA}editaAtividade`, {
+        idAtividade: idAtividade,
+        idResponsavel: idResponsavel,
+        descricao: descricao,
 
+      }).pipe(
+        tap(result => {
+          return result
+        })
+      )
+  }
 
-  finalizaAtividade(idAtividade):Observable<any>{
+  finalizaAtividade(idAtividade, idTarefa, idPessoaSessao):Observable<any>{
     return this.http.post<any>(`${this.envService.API_URL_TAREFA}finalizaAtividade`, {
       idAtividade: idAtividade,
-    },
-    {
-      reportProgress: true,
-      observe: 'events'
+      idTarefa: idTarefa,
+      idPessoa: idPessoaSessao
     }
     ).pipe(
       tap(result => {
@@ -48,13 +61,11 @@ export class AtividadesService {
     )
   }
 
-  desfinalizaAtividade(idAtividade):Observable<any>{
+  desfinalizaAtividade(idAtividade, idTarefa, idPessoaSessao):Observable<any>{
     return this.http.post<any>(`${this.envService.API_URL_TAREFA}desfazerFinalizacaoAtividade`, {
       idAtividade: idAtividade,
-    },
-    {
-      reportProgress: true,
-      observe: 'events'
+      idTarefa: idTarefa,
+      idPessoa: idPessoaSessao
     }
     ).pipe(
       tap(result => {

@@ -1,10 +1,28 @@
 .bg-content {
   // background-image: radial-gradient(circle, #d8e6f2, #c3d9ee, #afcdea, #9bc0e7, #87b3e3);
-  background-color: cadetblue;
+  background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
+  color: white;
+}
+body{
+  background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
+  color: white;
+  // overflow-y: hidden;
+
 }
 
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
 .white-text {
   color: white;
+}
+.mat-tab-label{
+  opacity: 1 !important;
+
 }
 .btn-add-person{
   color: #003c74;
@@ -42,6 +60,12 @@
 .bg-side-card {
   background-color: rgb(111, 151, 111) !important;
   color: white !important;
+}
+#bagSucesso {
+  .mat-badge-content{
+    background-color: rgb(43, 144, 94) !important;
+    color: white !important;
+  }
 }
 .mt-2 {
   margin-top: 2vh !important;
@@ -92,9 +116,16 @@ table {
 .text-center {
   text-align: center;
 }
+
 .text-upper{
   text-transform: uppercase;
 }
+
+.btn-set-responsavel{
+  // position: absolute;
+  right: 1vw;
+}
+
 @media (max-width: 950px) {
   .title-tarefa {
     margin-left: 4vw;
@@ -179,10 +210,14 @@ ul {
   margin-right: 1vw;
   background-color: #003c74;
 }
-.mat-tab-label {
-  color: white !important;
+mat-tab-label {
+  opacity: 1 !important;
 }
 
+.toolbar-w{
+  min-height: 8vh !important;
+  height: 8vh !important;
+}
 // side bar css
 .app-sidenav-container {
   flex: 1;
@@ -199,13 +234,14 @@ ul {
   flex-direction: column;
 }
 .app-sidenav {
-  width: 140px;
+  width: 155px;
 }
 .right {
   float: right;
 }
 .bg-header {
-  background-color: rgb(0, 60, 116);
+  // background-color: rgb(0, 60, 116);
+  background-color: #232323;
   color: white;
 }
 .white-text {
@@ -216,13 +252,60 @@ ul {
   margin-left: 1vw;
 }
 .btn-menu {
-  display: none;
+  display: none !important;
   min-width: 56px;
 }
 @media (max-width: 950px) {
   .btn-menu {
+    display: block !important;
     display: flex;
     justify-content: center;
     position: absolute;
   }
 }
+.tool-responsavel{
+  background: #003c74 !important;
+}
+.hover-check:hover{
+  background: rgb(192, 192, 192);
+  border-radius: 10px;
+  width: 100%;
+}
+.icon-resp{
+font-size: 18px;
+}
+.pl-2{
+  padding-left: 10px;
+  // position: absolute;
+}
+.pr-2{
+  margin-right: 2vw;
+}
+
+// scroll bar styles
+/* Let's get this party started */
+#scroll-atv{
+    overflow-y: auto;
+    height: 26vh;
+    width: 100%;
+}
+#scroll-atv::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#scroll-atv::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#scroll-atv::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(126, 159, 185);
+}
+
