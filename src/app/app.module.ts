@@ -20,7 +20,7 @@ import { ResponsavelAtividadeComponent } from './public/tarefas/responsavel-ativ
 import { TarefaParticipanteComponent } from './public/tarefas/tarefa-participante/tarefa-participante.component';
 import { TarefaPartipanteConcluidaComponent } from './public/tarefas/tarefa-partipante-concluida/tarefa-partipante-concluida.component'
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
   entryComponents: [
     CriaAtividadeComponent,
     CriarTarefaComponent,
-     AddParticipanteComponent,
+    AddParticipanteComponent,
     ResponsavelAtividadeComponent,
   ],
   imports: [
@@ -56,7 +56,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
   exports: [
   ],
   providers: [
-    ListaTarefasComponent
+
   ],
   bootstrap: [AppComponent]
 })

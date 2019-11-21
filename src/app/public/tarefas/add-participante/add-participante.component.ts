@@ -178,7 +178,7 @@ export class AddParticipanteComponent implements OnInit {
       }
     }
 
-    salvar(): void {
+    salvar(dados): void {
 
       this.data.participantesSelecionados = this.chipParticipanteSelecionado
       this.data.atividadesDaTarefa = this.atividades

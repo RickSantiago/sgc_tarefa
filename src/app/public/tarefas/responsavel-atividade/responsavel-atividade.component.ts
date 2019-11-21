@@ -32,7 +32,7 @@ export class ResponsavelAtividadeComponent {
     this.idResponsavel = event.target.value
   }
 
-   salvar(): void {
+   salvar(dados): void {
      this.data.idResponsavel =this.formDialog.get('idResponsavel').value
      const data = this.data
 
