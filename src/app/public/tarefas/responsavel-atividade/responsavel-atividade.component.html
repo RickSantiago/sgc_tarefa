@@ -20,6 +20,12 @@
         <span *ngIf="data.responsavelAtual">Atual: {{data.responsavelAtual}}</span>
     </mat-label>
     <mat-select formControlName="idResponsavel" (change)="retornaResponsavel($event)">
+        <mat-option
+         value="null"
+         *ngIf=(data.responsavelAtual)
+      >
+        Remover participante atual
+      </mat-option>
       <mat-option
         *ngFor="let resp of data.participantes"
          value={{resp.id}}

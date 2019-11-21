@@ -1,3 +1,4 @@
+import { AlertsService } from './alerts.service';
 import { EnvService } from './env.service';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -13,7 +14,7 @@ export class TarefasService {
 
 
 
-  constructor( private _snackBar: MatSnackBar, public authService: AuthService, public http: HttpClient, public envService: EnvService) {
+  constructor(  public authService: AuthService, public http: HttpClient, public envService: EnvService, public alert: AlertsService) {
 
   }
 
@@ -32,13 +33,19 @@ export class TarefasService {
       )
   }
 
-  snackRemoveParticipante(message: string, action: string) {
-   this._snackBar.open(message, action, {
-        duration: 3000
-      });
+  retornaTarefasPessoaParticipa(idPessoa): Observable<any> {
+    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaParticipantePessoaLogada?idPessoa=${idPessoa}`)
+      .pipe(
+        tap(response => response)
+      )
+  }
 
-      console.log('foi chamado');
-    }
+  retornaTarefasConcluidas(idPessoa): Observable<any> {
+    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaParticipanteConcluida?idPessoa=${idPessoa}`)
+      .pipe(
+        tap(response => response)
+      )
+  }
 
   removeParticipante(idParticipante, idTarefa): Observable<any>{
       return this.http.post(`${this.envService.API_URL_TAREFA}removeParticipante`, {
@@ -46,7 +53,7 @@ export class TarefasService {
         idTarefa: idTarefa
       }).pipe(
         tap(result => {
-         this.snackRemoveParticipante("Participante removido com sucesso", "Ok!");
+         this.alert.snackRemoveParticipante("Participante removido com sucesso", "Ok!");
 
           return result
         })
@@ -69,8 +76,8 @@ export class TarefasService {
       atividades: atividadesDaTarefa
     }).pipe(
       tap(result => {
-        console.log("resulto:")
-        console.log(result)
+
+        this.alert.snackCriarTarefa("Tarefa criada com sucesso!", "Ok!")
         return result
       })
     );
@@ -83,8 +90,7 @@ export class TarefasService {
 
   }).pipe(
     tap(result => {
-      console.log("resulto:")
-      console.log(result)
+      this.alert.snackAdicionarParticipante("Participante adicionado", "Ok!")
       return result
     })
   );

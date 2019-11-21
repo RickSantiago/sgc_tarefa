@@ -1,3 +1,4 @@
+import { AlertsService } from './alerts.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { EnvService } from './env.service';
 })
 export class AtividadesService {
 
-  constructor(public http: HttpClient, public envService: EnvService) { }
+  constructor(public http: HttpClient, public envService: EnvService, public alert: AlertsService) { }
 
   criaAtividade(
     idTarefa: number,
@@ -19,13 +20,9 @@ export class AtividadesService {
         idTarefa: idTarefa,
         responsavel: idResponsavel,
         descricao: descricao
-      },
-      {
-        reportProgress: true,
-        observe: 'events'
-      }
-      ).pipe(
+      }).pipe(
         tap(result => {
+          this.alert.snackCriaAtividade("Atividade criada", "Ok!");
           return result
         })
       )
@@ -43,6 +40,7 @@ export class AtividadesService {
 
       }).pipe(
         tap(result => {
+          this.alert.snackAtualizaAtividade("Atividade atualizada", "Ok!");
           return result
         })
       )
@@ -53,9 +51,9 @@ export class AtividadesService {
       idAtividade: idAtividade,
       idTarefa: idTarefa,
       idPessoa: idPessoaSessao
-    }
-    ).pipe(
+    }).pipe(
       tap(result => {
+        this.alert.snackResolveAtividade("Atividade resolvida!", "Ok!")
         return result
       })
     )
@@ -66,9 +64,9 @@ export class AtividadesService {
       idAtividade: idAtividade,
       idTarefa: idTarefa,
       idPessoa: idPessoaSessao
-    }
-    ).pipe(
+    }).pipe(
       tap(result => {
+        this.alert.snackDesfazResolveAtividade("Atividade não resolvida", "Ok!")
         return result
       })
     )

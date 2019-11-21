@@ -5,12 +5,11 @@ import { AtividadesService } from 'src/app/services/atividades.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-lista-tarefas',
-  templateUrl: './lista-tarefas.component.html',
-  styleUrls: ['./lista-tarefas.component.scss']
+  selector: 'app-tarefa-partipante-concluida',
+  templateUrl: './tarefa-partipante-concluida.component.html',
+  styleUrls: ['./tarefa-partipante-concluida.component.scss']
 })
-export class ListaTarefasComponent implements OnInit {
-
+export class TarefaPartipanteConcluidaComponent implements OnInit {
   public tarefas: any = [];
   public userSession: any;
   public idPessoaSession: string;
@@ -30,7 +29,7 @@ export class ListaTarefasComponent implements OnInit {
   ngOnInit() {
 
     this.retornaUsuario();
-    this.retornaTarefasAtividadeDoParticipante();
+    this.retornaTarefasParticipanteConcluidas();
 
     // setInterval(() => {
     //   console.log('Atualizou')
@@ -59,9 +58,9 @@ export class ListaTarefasComponent implements OnInit {
 
   }
 
-  retornaTarefasAtividadeDoParticipante() {
+  retornaTarefasParticipanteConcluidas() {
     this.tarefasService
-      .retornaTarefasParticipante(this.idPessoaSession).subscribe(
+      .retornaTarefasConcluidas(this.idPessoaSession).subscribe(
         data => {
           const { tarefas } = data;
 
@@ -75,30 +74,4 @@ export class ListaTarefasComponent implements OnInit {
         }
       );
   }
-
-  marcaAtividadeCompleta(idAtividade, idTarefa){
-    this.atividadesServices.finalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
-      data => {
-        console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
-        this.retornaTarefasAtividadeDoParticipante();
-      },
-      error => {
-          console.log('Erro ao finalizar atividade: ', error, ' ', idAtividade)
-      }
-    );
-  }
-
-  desmarcaAtividadeCompleta(idAtividade, idTarefa){
-    this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
-      data => {
-        console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
-        this.retornaTarefasAtividadeDoParticipante();
-      },
-      error => {
-          console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)
-      }
-    );
-  }
-
-
 }

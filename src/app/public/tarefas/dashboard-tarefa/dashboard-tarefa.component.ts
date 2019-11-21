@@ -1,3 +1,4 @@
+import { AlertsService } from './../../../services/alerts.service';
 import { ListaTarefasComponent } from './../lista-tarefas/lista-tarefas.component';
 import { ResponsavelAtividadeComponent } from './../responsavel-atividade/responsavel-atividade.component';
 import { AddParticipanteComponent } from './../add-participante/add-participante.component';
@@ -26,6 +27,8 @@ export class DashboardTarefaComponent implements OnInit {
   private userSession: any;
   public tarefas: any = [];
   public tarefasAtribuidas: any = [];
+  public tarefasParticipo: any = [];
+  public tarefasConcluidas: any = [];
   public selectedIndex = 0;
 
   public todosParticipantes: any = [];
@@ -66,6 +69,7 @@ export class DashboardTarefaComponent implements OnInit {
     public tarefasService: TarefasService,
     public atividadesServices: AtividadesService,
     public dialog: MatDialog,
+    public alert: AlertsService,
     public lisTarefaAtribuida: ListaTarefasComponent
    ) { }
 
@@ -74,6 +78,8 @@ export class DashboardTarefaComponent implements OnInit {
       this.retornaUsuario();
       this.retornaTarefasDoTitular();
       this.retornaTarefasAtividadeDoParticipante();
+      this.retornaTarefasParticipanteLogado();
+      this.retornaTarefasParticipanteConcluidas();
     }, 500)
 
     // setInterval(() => {
@@ -145,6 +151,42 @@ export class DashboardTarefaComponent implements OnInit {
       );
   }
 
+  retornaTarefasParticipanteLogado() {
+    this.tarefasService
+      .retornaTarefasPessoaParticipa(this.idPessoaSession).subscribe(
+        data => {
+          const { tarefas } = data;
+
+          this.tarefasParticipo = tarefas;
+          console.log(this.tarefasParticipo)
+          this.isErrorTarefa = false
+        },
+        error => {
+          this.isErrorTarefa = true
+          console.log(error)
+          console.log(this.isErrorTarefa)
+        }
+      );
+  }
+
+  retornaTarefasParticipanteConcluidas() {
+    this.tarefasService
+      .retornaTarefasConcluidas(this.idPessoaSession).subscribe(
+        data => {
+          const { tarefas } = data;
+
+          this.tarefasConcluidas = tarefas;
+          console.log(this.tarefasParticipo)
+          this.isErrorTarefa = false
+        },
+        error => {
+          this.isErrorTarefa = true
+          console.log(error)
+          console.log(this.isErrorTarefa)
+        }
+      );
+  }
+
   removeParticipanteTarefa(idParticipante, idTarefa){
       this.tarefasService.removeParticipante(idParticipante,
          idTarefa).subscribe(
@@ -153,7 +195,12 @@ export class DashboardTarefaComponent implements OnInit {
           this.retornaTarefasDoTitular();
         },
         error => {
-          console.log("Erro: ", error)
+          if(error.status == 403){
+            this.alert.snackProibirRemoveParticipante(`
+            Esse participante não pode ser removido,
+            existe(m) atividade(s) relacionada a ele, para remove-lo, edite a atividade do qual ele é responsavel`, "Ok")
+          }
+          console.log("Erro: ", error, ' status ', error.status);
         }
       );
   }

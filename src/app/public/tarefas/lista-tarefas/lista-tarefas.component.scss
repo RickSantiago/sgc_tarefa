@@ -1,10 +1,28 @@
 .bg-content {
   // background-image: radial-gradient(circle, #d8e6f2, #c3d9ee, #afcdea, #9bc0e7, #87b3e3);
-  background-color: cadetblue;
+  background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
+  color: white;
+}
+body{
+  background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
+  color: white;
+  // overflow-y: hidden;
+
 }
 
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
 .white-text {
   color: white;
+}
+.mat-tab-label{
+  opacity: 1 !important;
+
 }
 .btn-add-person{
   color: #003c74;
@@ -43,6 +61,7 @@
   background-color: rgb(111, 151, 111) !important;
   color: white !important;
 }
+
 .mt-2 {
   margin-top: 2vh !important;
 }
@@ -50,7 +69,7 @@
   margin-top: 4vh;
 }
 .mt-5 {
-  margin-top: 10vh;
+  margin-top: 10vh !important;
 }
 .pb-2{
   padding-bottom: 2vh;
@@ -68,14 +87,12 @@
   margin: 1vw;
 }
 .mt-7dot1 {
-  margin-top: 7.1vh;
+  margin-top: 7.1vh !important;
 }
 .mb-2 {
   margin-bottom: 2vh;
 }
-table {
-  width: 100%;
-}
+
 .mt-3n {
   margin-top: -3vh;
 }
@@ -98,27 +115,10 @@ table {
 }
 
 .btn-set-responsavel{
-  position: absolute;
-  right: 1.2vw;
+  // position: absolute;
+  right: 1vw;
 }
 
-@media (max-width: 950px) {
-  .title-tarefa {
-    margin-left: 4vw;
-  }
-}
-
-@media (max-width: 720px) {
-  .title-tarefa {
-    margin-left: 4vw;
-  }
-}
-@media (max-width: 650px) {
-  .title-tarefa {
-    //  padding-left: 8vw;
-    text-align: center;
-  }
-}
 .bg-add-atividade {
   background-color: rgb(54, 139, 160);
   color: white;
@@ -186,33 +186,13 @@ ul {
   margin-right: 1vw;
   background-color: #003c74;
 }
-.mat-tab-label {
-  color: white !important;
-}
 
-// side bar css
-.app-sidenav-container {
-  flex: 1;
-  height: 100%;
-  min-height: 100%;
-  position: fixed;
-  width: 100%;
-  min-width: 100%;
-  background-color: #003c7412;
-}
-.app-sidenav-content {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
-.app-sidenav {
-  width: 140px;
-}
 .right {
   float: right;
 }
 .bg-header {
-  background-color: rgb(0, 60, 116);
+  // background-color: rgb(0, 60, 116);
+  background-color: #232323;
   color: white;
 }
 .white-text {
@@ -222,22 +202,17 @@ ul {
 .ml-1 {
   margin-left: 1vw;
 }
-.btn-menu {
-  display: none;
-  min-width: 56px;
+
+.icon-resp{
+font-size: 18px;
 }
-@media (max-width: 950px) {
-  .btn-menu {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-  }
+.pl-2{
+  padding-left: 10px;
+  // position: absolute;
 }
-.tool-responsavel{
-  background: #003c74 !important;
+.pr-2{
+  margin-right: 2vw;
 }
-.hover-check:hover{
-  background: rgb(192, 192, 192);
-  border-radius: 10px;
-  width: 100%;
-}
+
+// scroll bar styles
+/* Let's get this party started */

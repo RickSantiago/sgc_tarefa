@@ -5,11 +5,11 @@ import { AtividadesService } from 'src/app/services/atividades.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-lista-tarefas',
-  templateUrl: './lista-tarefas.component.html',
-  styleUrls: ['./lista-tarefas.component.scss']
+  selector: 'app-tarefa-participante',
+  templateUrl: './tarefa-participante.component.html',
+  styleUrls: ['./tarefa-participante.component.scss']
 })
-export class ListaTarefasComponent implements OnInit {
+export class TarefaParticipanteComponent implements OnInit {
 
   public tarefas: any = [];
   public userSession: any;
@@ -30,11 +30,11 @@ export class ListaTarefasComponent implements OnInit {
   ngOnInit() {
 
     this.retornaUsuario();
-    this.retornaTarefasAtividadeDoParticipante();
+    this.retornaTarefasParticipanteLogado();
 
     // setInterval(() => {
     //   console.log('Atualizou')
-      // this.retornaTarefasAtividadeDoParticipante();
+    //   this.retornaTarefasParticipanteLogado();
     // }, 5000);
 
   }
@@ -59,9 +59,9 @@ export class ListaTarefasComponent implements OnInit {
 
   }
 
-  retornaTarefasAtividadeDoParticipante() {
+  retornaTarefasParticipanteLogado() {
     this.tarefasService
-      .retornaTarefasParticipante(this.idPessoaSession).subscribe(
+      .retornaTarefasPessoaParticipa(this.idPessoaSession).subscribe(
         data => {
           const { tarefas } = data;
 
@@ -80,7 +80,7 @@ export class ListaTarefasComponent implements OnInit {
     this.atividadesServices.finalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
-        this.retornaTarefasAtividadeDoParticipante();
+        this.retornaTarefasParticipanteLogado();
       },
       error => {
           console.log('Erro ao finalizar atividade: ', error, ' ', idAtividade)
@@ -92,7 +92,7 @@ export class ListaTarefasComponent implements OnInit {
     this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
-        this.retornaTarefasAtividadeDoParticipante();
+        this.retornaTarefasParticipanteLogado();
       },
       error => {
           console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)

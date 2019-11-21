@@ -304,30 +304,35 @@
                 >Atribuidas a mim</span
               >
             </ng-template>
-            <app-lista-tarefas ></app-lista-tarefas>
+            <h1 class="text-center mt-5" *ngIf="tarefasAtribuidas.length == 0">Não encontramos tarefas.</h1>
+            <app-lista-tarefas *ngIf="tarefasAtribuidas.length != 0"></app-lista-tarefas>
           </mat-tab>
 
           <mat-tab>
               <ng-template matTabLabel >
                   <span
                     class="white-text"
-                    matBadge="5"
+                    matBadge="{{tarefasParticipo.length}}"
                     matBadgeOverlap="false"
                     matBadgeColor="accent"
-                    >Pendentes</span
+                    >Tarefas que participo</span
                   >
                 </ng-template>
+                <h1 class="text-center mt-5" *ngIf="tarefasParticipo.length == 0">Não encontramos tarefas.</h1>
+                <app-tarefa-participante *ngIf="tarefasParticipo.length != 0"></app-tarefa-participante>
           </mat-tab>
            <mat-tab>
               <ng-template matTabLabel >
                   <span
                     class="white-text"
-                    matBadge="1"
+                    matBadge="{{tarefasConcluidas.length}}"
                     matBadgeOverlap="false"
                     id="bagSucesso"
                     >Concluídas</span
                   >
                 </ng-template>
+                <h1 class="text-center mt-5" *ngIf="tarefasConcluidas.length == 0">Não encontramos tarefas.</h1>
+                <app-tarefa-partipante-concluida *ngIf="tarefasConcluidas.length != 0"></app-tarefa-partipante-concluida>
           </mat-tab>
         </mat-tab-group>
       </div>

@@ -16,7 +16,9 @@ import { DashboardTarefaComponent } from './public/tarefas/dashboard-tarefa/dash
 import { CriaAtividadeComponent } from './public/tarefas/cria-atividade/cria-atividade.component';
 import '../styles.scss';
 import { AddParticipanteComponent } from './public/tarefas/add-participante/add-participante.component';
-import { ResponsavelAtividadeComponent } from './public/tarefas/responsavel-atividade/responsavel-atividade.component'
+import { ResponsavelAtividadeComponent } from './public/tarefas/responsavel-atividade/responsavel-atividade.component';
+import { TarefaParticipanteComponent } from './public/tarefas/tarefa-participante/tarefa-participante.component';
+import { TarefaPartipanteConcluidaComponent } from './public/tarefas/tarefa-partipante-concluida/tarefa-partipante-concluida.component'
 
 export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -31,6 +33,8 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
     CriaAtividadeComponent,
     AddParticipanteComponent,
     ResponsavelAtividadeComponent,
+    TarefaParticipanteComponent,
+    TarefaPartipanteConcluidaComponent,
   ],
   entryComponents: [
     CriaAtividadeComponent,
