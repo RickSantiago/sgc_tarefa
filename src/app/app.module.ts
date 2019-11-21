@@ -1,3 +1,8 @@
+import { EnvService } from './services/env.service';
+import { AuthService } from './services/auth.service';
+import { TarefasService } from 'src/app/services/tarefas.service';
+import { AtividadesService } from 'src/app/services/atividades.service';
+import { AlertsService } from './services/alerts.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './../material';
@@ -56,7 +61,11 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
   exports: [
   ],
   providers: [
-
+      AlertsService,
+      AtividadesService,
+      TarefasService,
+      AuthService,
+      EnvService,
   ],
   bootstrap: [AppComponent]
 })
