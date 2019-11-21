@@ -70,7 +70,6 @@ export class DashboardTarefaComponent implements OnInit {
     public atividadesServices: AtividadesService,
     public dialog: MatDialog,
     public alert: AlertsService,
-    public lisTarefaAtribuida: ListaTarefasComponent
    ) { }
 
   ngOnInit() {
