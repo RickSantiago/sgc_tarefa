@@ -111,7 +111,7 @@
 
                 <mat-checkbox
                 color="primary"
-                *ngIf="atv.finalizada"
+                *ngIf="atv.finalizada && task.idTitular != idPessoaSession"
                 style="text-decoration: line-through;"
                 name="atividade"
                 checked="{{ atv.finalizada }}"
@@ -120,9 +120,7 @@
                 ><strong
                   class="text-upper"
                   matTooltip="{{ atv.responsavel }}"
-                  matTooltipPosition="above"
-
-                >
+                  matTooltipPosition="above">
                   {{ atv.descricao }}
 
                 </strong>
@@ -131,16 +129,24 @@
               </mat-checkbox>
 
               <mat-checkbox
-                *ngIf="!atv.finalizada"
+                *ngIf="atv.finalizada && task.idTitular == idPessoaSession"
                 name="atividade"
                 value="{{ atv.id }}"
                 class="text-upper"
+                color="primary"
+                checked="{{ atv.finalizada }}"
                 matTooltip="{{ atv.responsavel }}"
                 matTooltipPosition="above"
+                (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
                 >
-                <span >
-                    {{ atv.descricao }}
-                </span>
+                <strong
+                  class="text-upper"
+                  matTooltip="{{ atv.responsavel }}"
+                  matTooltipPosition="above"
+                >
+                  {{ atv.descricao }}
+
+                </strong>
 
 
               </mat-checkbox>

@@ -35,7 +35,9 @@ $iron-sgc-theme: mat-light-theme($iron-sgc-primary, $iron-sgc-accent, $iron-sgc-
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif; text-rendering: optimizeLegibility;;
+  font-family: Roboto, "Helvetica Neue", sans-serif; text-rendering: optimizeLegibility;
+  // font-family: 'Lato', sans-serif; text-rendering: optimizeLegibility;
+
 }
 
 mat-tab-label {

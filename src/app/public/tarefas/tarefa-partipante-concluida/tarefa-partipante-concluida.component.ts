@@ -74,4 +74,17 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
         }
       );
   }
+
+  desmarcaAtividadeCompleta(idAtividade, idTarefa){
+    this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
+      data => {
+        console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
+        this.retornaTarefasParticipanteConcluidas();
+      },
+      error => {
+          console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)
+      }
+    );
+  }
+
 }
