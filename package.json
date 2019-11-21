@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "angular-http-server --path /dist/iron-sgc/",
     "build": "ng build --prod --base-href /dist/iron-sgc/",
     "test": "ng test",
     "lint": "ng lint",
