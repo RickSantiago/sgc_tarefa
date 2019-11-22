@@ -13,7 +13,14 @@ body{
 .example-icon {
   padding: 0 14px;
 }
-
+.card-prazo{
+  // border-top: solid 6px orangered;
+  border-top: solid 6px rgb(173, 30, 30);
+}
+.icon-prazo{
+  // border-top: solid 6px orangered;
+ color: rgb(173, 30, 30);
+}
 .example-spacer {
   flex: 1 1 auto;
 }

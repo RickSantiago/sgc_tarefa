@@ -2,19 +2,58 @@
   Olá, vamos criar uma tarefa?
 </h2>
 <mat-dialog-content>
-  <mat-slide-toggle class="text-center" color="primary" [(ngModel)]="data.isRotina"
+  <mat-slide-toggle
+    class="text-center"
+    style="width: 100%;"
+    color="primary"
+    [(ngModel)]="data.isRotina"
     >Esta é uma tarefa de rotina?
   </mat-slide-toggle>
 
-  <mat-form-field appearance="outline" style="width: 100%; margin-top: 1vh;">
+  <mat-form-field appearance="outline" style="width: 100%; margin-top: 2vh;">
     <mat-label>Titulo</mat-label>
-    <input matInput
-     placeholder="Qual o titulo?"
-     [(ngModel)]="data.titulo"
-     required/>
+    <input
+      matInput
+      placeholder="Qual o titulo?"
+      [(ngModel)]="data.titulo"
+      required
+    />
 
     <mat-icon matSuffix>edit</mat-icon>
   </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 50%;" [fxHide.lt-sm]="true">
+    <input
+      matInput
+      disabled
+      value="Para atribuir prazo a esta tarefa, insira a data e hora de termino"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 25%;" [ngStyle.lt-sm]="{'width.vw': 70}">
+    <mat-label>Quando deve terminar?</mat-label>
+    <input
+      matInput
+      type="text"
+      mask="d0/M0/0000"
+      placeholder="Nos diga a data do prazo"
+      (change)="recebeDataPrazo($event)"
+    />
+
+    <mat-icon matSuffix>today</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width: 25%;" [ngStyle.lt-sm]="{'width.vw': 70}">
+    <mat-label>Hora do termino</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Hora"
+      mask="Hh:m0"
+      (change)="recebeHoraPrazo($event)"
+    />
+
+    <mat-icon matSuffix>alarm</mat-icon>
+  </mat-form-field>
+
   <mat-form-field appearance="outline" style="width: 100%;">
     <mat-label>Descrição</mat-label>
     <textarea
@@ -26,7 +65,6 @@
     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
   </mat-form-field>
   <mat-form-field appearance="outline" style="width: 100%;">
-
     <mat-chip-list #chipListAtividade aria-label="Atividade selecao">
       <mat-chip
         *ngFor="let atividade of atividades"

@@ -17,6 +17,7 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
   isErrorTarefa: boolean;
+  public hoje:string = new Date().toLocaleDateString();
 
   constructor(
 

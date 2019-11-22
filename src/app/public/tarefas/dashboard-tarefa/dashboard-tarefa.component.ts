@@ -47,6 +47,8 @@ export class DashboardTarefaComponent implements OnInit {
 
   tituloTarefa: string;
   descricaoTarefa: string;
+  prazo:string;
+  horaPrazo:string;
 
   descricao: string;
   idResponsavel: any;
@@ -57,6 +59,8 @@ export class DashboardTarefaComponent implements OnInit {
   atividadesCriadas: any = [];
   isRotina: boolean;
   idPessoaSession: string;
+  public hoje:string = new Date().toLocaleDateString();
+  public hojeHora:string = new Date().toLocaleString();
 
 
 
@@ -73,6 +77,8 @@ export class DashboardTarefaComponent implements OnInit {
    ) { }
 
   ngOnInit() {
+    console.log(this.hojeHora);
+
     setTimeout(() => {
       this.retornaUsuario();
       this.retornaTarefasDoTitular();
@@ -297,6 +303,7 @@ export class DashboardTarefaComponent implements OnInit {
     })
   }
 
+
   openDialogTarefa() {
 
     let dialogRef = this.dialog.open(CriarTarefaComponent, {
@@ -304,6 +311,8 @@ export class DashboardTarefaComponent implements OnInit {
       data: {
         idTitular: this.idPessoaSession,
         titulo: this.tituloTarefa,
+        prazo: this.prazo,
+        horaPrazo: this.horaPrazo,
         descricao: this.descricaoTarefa,
         participantesSelecionados: this.participantesSelecionados,
         atividadesDaTarefa: this.atividadesCriadas,
@@ -316,6 +325,8 @@ export class DashboardTarefaComponent implements OnInit {
       const {
         idTitular,
         titulo,
+        prazo,
+        horaPrazo,
         descricao,
         participantesSelecionados,
         isRotina,
@@ -323,9 +334,10 @@ export class DashboardTarefaComponent implements OnInit {
         = result
 
       console.log(`Dialog resultado: `);
-
       console.log('Participantes: ', participantesSelecionados.map(item => item.id));
       console.log('Descricao: ', descricao);
+      console.log('Prazo: ', prazo);
+      console.log('HoraPrazo: ', horaPrazo);
       console.log('idTitular: ', idTitular);
       console.log('É rotina? ', isRotina);
       console.log('Atividade', atividadesDaTarefa.map(item => item.descricao));
@@ -335,6 +347,8 @@ export class DashboardTarefaComponent implements OnInit {
         idTitular,
         titulo,
         descricao,
+        prazo,
+        horaPrazo,
         isRotina,
         participantesSelecionados,
         atividadesDaTarefa).subscribe(

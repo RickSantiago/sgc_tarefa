@@ -9,7 +9,18 @@ body{
   // overflow-y: hidden;
 
 }
+.card-prazo{
+  // border-top: solid 6px orangered;
+  border-top: solid 6px rgb(173, 30, 30);
+}
+.icon-prazo{
+  // border-top: solid 6px orangered;
+ color: rgb(173, 30, 30);
+}
 
+.card-prazo-finalizado{
+  border-top: solid 6px rgb(173, 30, 30);
+}
 .example-icon {
   padding: 0 14px;
 }

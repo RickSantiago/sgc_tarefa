@@ -15,6 +15,7 @@ export class TarefaParticipanteComponent implements OnInit {
   public userSession: any;
   public idPessoaSession: string;
   public isErrorUsuario: boolean;
+  public hoje:string = new Date().toLocaleDateString();
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
   isErrorTarefa: boolean;

@@ -1,30 +1,39 @@
 <h1 class="text-center mt-5" *ngIf="isErrorUsuario">
-    Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce
-    está online no SGC, ou entre em contato com o Suporte Técnico.
-  </h1>
-  <div
-    class="criar-tarefa"
-    *ngIf="tarefas.length == 0 && !isErrorUsuario"
-  >
-    <h1 class="text-center">Não foram criadas tarefas.</h1>
-  </div>
-  <div
+  Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce está online
+  no SGC, ou entre em contato com o Suporte Técnico.
+</h1>
+<div class="criar-tarefa" *ngIf="tarefas.length == 0 && !isErrorUsuario">
+  <h1 class="text-center">Não foram criadas tarefas.</h1>
+</div>
+<div
   fxLayout="column"
   fxFlex="100%"
   fxLayout.gt-md="row"
   class="mt-2"
   gdColumns.gt-md="32vw 32vw 32vw"
   fxLayoutAlign="center space-around"
-  >
+>
   <div
     fxFlex.md="100%"
     fxFlex.gt-sm="100%"
     [ngStyle]="{ margin: '2vh' }"
     *ngFor="let task of tarefas"
   >
-    <mat-card class="mat-elevation-z6">
-      <mat-card-title class="mb-2">
+    <mat-card
+      class="mat-elevation-z6"
+      [ngClass]="{ 'card-prazo': task.prazo == hoje }"
+    >
+      <mat-card-title class="mb-2 ">
+        <mat-icon
+          *ngIf="task.prazo"
+          matTooltip="Encerra em: {{ task.prazo }}"
+          matSuffix
+          class="icon-prazo"
+        >
+          {{ task.prazo ? "today" : "" }}
+        </mat-icon>
         {{ task.titulo }}
+
         <small class="f-right"> #{{ task.id }} </small>
       </mat-card-title>
       <mat-card-subtitle>
@@ -76,7 +85,6 @@
               matTooltip="{{ part.nome }}"
             >
               {{ part.nome.split(" ")[0] }}
-
             </mat-chip>
           </mat-chip-list>
           <mat-chip-list
@@ -104,13 +112,9 @@
             <mat-icon>post_add</mat-icon>
           </button> -->
 
-
-
-          <div  class="mt-2" id="scroll-atv">
-
-            <div *ngFor="let atv of task.atividades" >
-
-                <mat-checkbox
+          <div class="mt-2" id="scroll-atv">
+            <div *ngFor="let atv of task.atividades">
+              <mat-checkbox
                 color="primary"
                 *ngIf="atv.finalizada"
                 style="text-decoration: line-through;"
@@ -122,13 +126,9 @@
                   class="text-upper"
                   matTooltip="{{ atv.responsavel }}"
                   matTooltipPosition="above"
-
                 >
                   {{ atv.descricao }}
-
                 </strong>
-
-
               </mat-checkbox>
 
               <mat-checkbox
@@ -139,21 +139,16 @@
                 class="text-upper"
                 matTooltip="{{ atv.responsavel }}"
                 matTooltipPosition="above"
-                >
-                <span >
-                    {{ atv.descricao }}
+              >
+                <span>
+                  {{ atv.descricao }}
                 </span>
-
-
               </mat-checkbox>
-              <small *ngIf="atv.responsavel" >
-                 - <strong>{{atv.responsavel.split(' ')[0]}}</strong>
-                </small>
-              <span
-              *ngIf="!atv.finalizada"
-              class="btn-set-responsavel"
-            >
-              <!-- <button
+              <small *ngIf="atv.responsavel">
+                - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
+              </small>
+              <span *ngIf="!atv.finalizada" class="btn-set-responsavel">
+                <!-- <button
                 mat-icon-button
                 matTooltip="Editar atividade"
                 matTooltipPosition="right"
@@ -164,10 +159,8 @@
               >
                 <mat-icon class="icon-resp"  matSuffix>textsms</mat-icon>
               </button> -->
-            </span>
-
+              </span>
             </div>
-
           </div>
         </div>
       </mat-card-content>
@@ -183,4 +176,4 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  </div>
+</div>

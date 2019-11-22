@@ -121,9 +121,20 @@
                 [ngStyle]="{ margin: '2vh' }"
                 *ngFor="let task of tarefas"
               >
-                <mat-card class="mat-elevation-z6">
-                  <mat-card-title class="mb-2">
+                <mat-card class="mat-elevation-z6"
+                [ngClass]="{'card-prazo': task.prazo.split(' ')[0] == hoje}"
+
+               >
+                  <mat-card-title class="mb-2 ">
+                      <mat-icon *ngIf="task.prazo"
+                      matTooltip="Encerra em: {{task.prazo}}"
+                      matSuffix
+                     class="icon-prazo"
+                    >
+                      {{ task.prazo ? "today" : "" }}
+                    </mat-icon>
                     {{ task.titulo }}
+
                     <small class="f-right"> #{{ task.id }} </small>
                   </mat-card-title>
                   <mat-card-subtitle>

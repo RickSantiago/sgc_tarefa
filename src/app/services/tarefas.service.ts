@@ -64,6 +64,8 @@ export class TarefasService {
     idTitular:number,
     titulo:string,
     descricao:string,
+    prazo:string,
+    horaPrazo:string,
     isRotina:boolean,
     participantesSelecionados:any,
     atividadesDaTarefa:any): Observable<any> {
@@ -71,6 +73,8 @@ export class TarefasService {
       idTitular: idTitular,
       titulo: titulo,
       descricao: descricao,
+      prazo: prazo,
+      horaPrazo: horaPrazo,
       isRotina: isRotina,
       participantes: participantesSelecionados,
       atividades: atividadesDaTarefa

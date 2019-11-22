@@ -1,99 +1,106 @@
 <h1 class="text-center mt-5" *ngIf="isErrorUsuario">
-  Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce
-  está online no SGC, ou entre em contato com o Suporte Técnico.
+  Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce está online
+  no SGC, ou entre em contato com o Suporte Técnico.
 </h1>
+<div class="criar-tarefa" *ngIf="tarefas.length == 0 && !isErrorUsuario"></div>
 <div
-  class="criar-tarefa"
-  *ngIf="tarefas.length == 0 && !isErrorUsuario"
+  fxLayout="column"
+  fxFlex="100%"
+  fxLayout.gt-md="row"
+  class="mt-2"
+  gdColumns.gt-md="32vw 32vw 32vw"
+  fxLayoutAlign="center space-around"
 >
-</div>
-<div
-fxLayout="column"
-fxFlex="100%"
-fxLayout.gt-md="row"
-class="mt-2"
-gdColumns.gt-md="32vw 32vw 32vw"
-fxLayoutAlign="center space-around"
->
-<div
-  fxFlex.md="100%"
-  fxFlex.gt-sm="100%"
-  [ngStyle]="{ margin: '2vh' }"
-  *ngFor="let task of tarefas"
->
-  <mat-card class="mat-elevation-z6">
-    <mat-card-title class="mb-2">
-      {{ task.titulo }}
-      <small class="f-right"> #{{ task.id }} </small>
-    </mat-card-title>
-    <mat-card-subtitle>
-      Criada por
-      <strong
-        >{{ task.titular.split(" ")[0] }}
-        <span class="pl-2">
-          <mat-icon
-            matTooltip="É uma tarefa de Rotina"
-            class="icon-resp"
-            matSuffix
-            color="{{ task.rotina ? 'primary' : 'warn' }}"
-          >
-            {{ task.rotina ? "alarm" : "" }}
-          </mat-icon>
-        </span>
-      </strong>
-      <span style="float: right;">
-        {{ task.criacao }}
-      </span>
-    </mat-card-subtitle>
-    <mat-card-content>
-      <p *ngIf="task.descricao" class="card-desc">
-        Descrição: {{ task.descricao }}
-      </p>
+  <div
+    fxFlex.md="100%"
+    fxFlex.gt-sm="100%"
+    [ngStyle]="{ margin: '2vh' }"
+    *ngFor="let task of tarefas"
+  >
+    <mat-card
+      class="mat-elevation-z6"
+      [ngClass]="{ 'card-prazo': task.prazo == hoje }"
+    >
+      <mat-card-title class="mb-2 ">
+        <mat-icon
+          *ngIf="task.prazo"
+          matTooltip="Encerra em: {{ task.prazo }}"
+          matSuffix
+          class="icon-prazo"
+        >
+          {{ task.prazo ? "today" : "" }}
+        </mat-icon>
+        {{ task.titulo }}
 
-      <p>
-        <strong *ngIf="task.participantes.length != 0"
-          >Participantes:
+        <small class="f-right"> #{{ task.id }} </small>
+      </mat-card-title>
+      <mat-card-subtitle>
+        Criada por
+        <strong
+          >{{ task.titular.split(" ")[0] }}
+          <span class="pl-2">
+            <mat-icon
+              matTooltip="É uma tarefa de Rotina"
+              class="icon-resp"
+              matSuffix
+              color="{{ task.rotina ? 'primary' : 'warn' }}"
+            >
+              {{ task.rotina ? "alarm" : "" }}
+            </mat-icon>
+          </span>
         </strong>
-        <strong *ngIf="task.participantes.length == 0"
-          >Sem participantes.
-        </strong>
-        <!-- <button
+        <span style="float: right;">
+          {{ task.criacao }}
+        </span>
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p *ngIf="task.descricao" class="card-desc">
+          Descrição: {{ task.descricao }}
+        </p>
+
+        <p>
+          <strong *ngIf="task.participantes.length != 0"
+            >Participantes:
+          </strong>
+          <strong *ngIf="task.participantes.length == 0"
+            >Sem participantes.
+          </strong>
+          <!-- <button
           mat-icon-button
           class="f-right btn-add-person mb-2"
           matTooltip="Adicionar participante(s)"
         >
           <mat-icon>group_add</mat-icon>
         </button> -->
-        <mat-chip-list
-          *ngIf="task.participantes.length != 0"
-          #chipList
-          aria-label="Selecionar participantes"
-        >
-          <mat-chip
-            *ngFor="let part of task.participantes"
-            class="bg-info"
-            matTooltip="{{ part.nome }}"
+          <mat-chip-list
+            *ngIf="task.participantes.length != 0"
+            #chipList
+            aria-label="Selecionar participantes"
           >
-            {{ part.nome.split(" ")[0] }}
+            <mat-chip
+              *ngFor="let part of task.participantes"
+              class="bg-info"
+              matTooltip="{{ part.nome }}"
+            >
+              {{ part.nome.split(" ")[0] }}
+            </mat-chip>
+          </mat-chip-list>
+          <mat-chip-list
+            *ngIf="task.participantes.length == 0"
+            #chipList
+            aria-label="Selecionar participantes"
+          >
+            <mat-chip class="bg-danger">
+              Você não adicionou participantes.
+            </mat-chip>
+          </mat-chip-list>
+        </p>
 
-          </mat-chip>
-        </mat-chip-list>
-        <mat-chip-list
-          *ngIf="task.participantes.length == 0"
-          #chipList
-          aria-label="Selecionar participantes"
-        >
-          <mat-chip class="bg-danger">
-            Você não adicionou participantes.
-          </mat-chip>
-        </mat-chip-list>
-      </p>
-
-      <div class="mt-4">
-        <strong class="font-stronger">
-          Atividades
-        </strong>
-        <!-- <button
+        <div class="mt-4">
+          <strong class="font-stronger">
+            Atividades
+          </strong>
+          <!-- <button
           mat-icon-button
           class="f-right btn-add-atv"
           aria-label="Adicionar uma nova tarefa"
@@ -103,56 +110,43 @@ fxLayoutAlign="center space-around"
           <mat-icon>post_add</mat-icon>
         </button> -->
 
-
-
-        <div  class="mt-2" id="scroll-atv">
-
-          <div *ngFor="let atv of task.atividades" >
+          <div class="mt-2" id="scroll-atv">
+            <div *ngFor="let atv of task.atividades">
+              <mat-checkbox
+                color="primary"
+                *ngIf="atv.finalizada"
+                style="text-decoration: line-through;"
+                name="atividade"
+                checked="{{ atv.finalizada }}"
+                value="{{ atv.id }}"
+                (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
+                ><strong
+                  class="text-upper"
+                  matTooltip="{{ atv.responsavel }}"
+                  matTooltipPosition="above"
+                >
+                  {{ atv.descricao }}
+                </strong>
+              </mat-checkbox>
 
               <mat-checkbox
-              color="primary"
-              *ngIf="atv.finalizada"
-              style="text-decoration: line-through;"
-              name="atividade"
-              checked="{{ atv.finalizada }}"
-              value="{{ atv.id }}"
-              (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
-              ><strong
+                *ngIf="!atv.finalizada"
+                name="atividade"
+                value="{{ atv.id }}"
+                (click)="marcaAtividadeCompleta(atv.id, task.id)"
                 class="text-upper"
                 matTooltip="{{ atv.responsavel }}"
                 matTooltipPosition="above"
-
               >
-                {{ atv.descricao }}
-
-              </strong>
-
-
-            </mat-checkbox>
-
-            <mat-checkbox
-              *ngIf="!atv.finalizada"
-              name="atividade"
-              value="{{ atv.id }}"
-              (click)="marcaAtividadeCompleta(atv.id, task.id)"
-              class="text-upper"
-              matTooltip="{{ atv.responsavel }}"
-              matTooltipPosition="above"
-              >
-              <span >
+                <span>
                   {{ atv.descricao }}
-              </span>
-
-
-            </mat-checkbox>
-            <small *ngIf="atv.responsavel" >
-               - <strong>{{atv.responsavel.split(' ')[0]}}</strong>
+                </span>
+              </mat-checkbox>
+              <small *ngIf="atv.responsavel">
+                - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
               </small>
-            <span
-            *ngIf="!atv.finalizada"
-            class="btn-set-responsavel"
-          >
-            <!-- <button
+              <span *ngIf="!atv.finalizada" class="btn-set-responsavel">
+                <!-- <button
               mat-icon-button
               matTooltip="Editar atividade"
               matTooltipPosition="right"
@@ -163,15 +157,13 @@ fxLayoutAlign="center space-around"
             >
               <mat-icon class="icon-resp"  matSuffix>textsms</mat-icon>
             </button> -->
-          </span>
-
+              </span>
+            </div>
           </div>
-
         </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <!-- <button
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button
         class="btn-new-atv"
         mat-mini-fab
         color="primary"
@@ -179,7 +171,7 @@ fxLayoutAlign="center space-around"
       >
         <mat-icon>add</mat-icon>
       </button> -->
-    </mat-card-actions>
-  </mat-card>
-</div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
