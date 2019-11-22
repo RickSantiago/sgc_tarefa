@@ -97,10 +97,23 @@
                 >Minhas Tarefas</span
               >
             </ng-template>
-            <h1 class="text-center mt-5" *ngIf="isErrorUsuario">
-              Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce
-              está online no SGC, ou entre em contato com o Suporte Técnico.
-            </h1>
+            <div *ngIf="isErrorUsuario">
+              <h1 class="text-center mt-5" >
+                Desculpe algo aconteceu ao trazer suas tarefas, verifique se voce
+                está online no SGC, ou entre em contato com o Suporte Técnico.
+              </h1>
+
+              <p class="text-center">
+                <a href="http://177.126.81.87:8089/sgc"
+                mat-stroked-button
+                class="bg-card-task"
+              >
+                Clique para verificar seu acesso.
+            <mat-icon Prefix>lock</mat-icon>
+        </a>
+              </p>
+            </div>
+
             <div
               class="criar-tarefa"
               *ngIf="tarefas.length == 0 && !isErrorUsuario"
