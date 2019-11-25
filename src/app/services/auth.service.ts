@@ -24,7 +24,7 @@ export class AuthService {
       error =>{
         console.log('Não foi possivel obter os dados da sessão', error);
         sessionStorage.removeItem('user')
-        sessionStorage.removeItem('idPessoa')
+        sessionStorage.removeItem('person')
         sessionStorage.removeItem('token')
       })
     )
