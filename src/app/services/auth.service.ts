@@ -14,9 +14,13 @@ export class AuthService {
   constructor(public http: HttpClient, public envService: EnvService) { }
 
 
-  recebeDadosLogin(): Observable<any> {
+  recebeDadosLogin(routeId: number): Observable<any> {
+    console.log('USER ROUTE ID ', routeId);
 
-    return this.http.get(`${this.envService.API_URL}autenticacao/retornaDadosSessao`).pipe(
+    return this.http.post<any>(`${this.envService.API_URL}autenticacao/retornaDadosSessao`, {
+      idPessoa: routeId
+    }).pipe(
+
       tap(response => {
         const { userData } = response
         this.idPessoa = userData.map(item => { this.idPessoa = item })

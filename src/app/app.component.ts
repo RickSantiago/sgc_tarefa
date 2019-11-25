@@ -10,29 +10,37 @@ export class AppComponent {
   title = 'iron-sgc';
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)")
+  routeId;
 
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
-   this.recebeSessao();
+  //  this.recebeSessao();
   }
 
- recebeSessao(){
-    this.authService.recebeDadosLogin().subscribe(
-      data => {
-        const { userData } = data
+//  recebeSessao(){
 
-        sessionStorage.setItem('user', userData.map(id => id.userId))
-        sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
-        sessionStorage.setItem('token', userData.map(tk => tk.token))
+//   this.routeId = location.pathname.split('/')[2];
+//   console.log('ROUTE ID APP ', this.routeId);
 
-        // console.log(userData);
-      },
-      error => {
-        console.log(error)
-      }
-    );
-  }
+//     this.authService.recebeDadosLogin(this.routeId).subscribe(
+//       data => {
+//         const { userData } = data
+
+//         console.log(userData);
+
+
+//         sessionStorage.setItem('user', userData.map(id => id.userId))
+//         sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
+//         sessionStorage.setItem('token', userData.map(tk => tk.token))
+
+//         // console.log(userData);
+//       },
+//       error => {
+//         console.log(error)
+//       }
+//     );
+//   }
 
   telaMenor(){
     return this.mediaMatch.matches;

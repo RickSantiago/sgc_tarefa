@@ -14,6 +14,8 @@ import { FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -47,8 +49,8 @@ export class DashboardTarefaComponent implements OnInit {
 
   tituloTarefa: string;
   descricaoTarefa: string;
-  prazo:string;
-  horaPrazo:string;
+  prazo: string;
+  horaPrazo: string;
 
   descricao: string;
   idResponsavel: any;
@@ -59,9 +61,10 @@ export class DashboardTarefaComponent implements OnInit {
   atividadesCriadas: any = [];
   isRotina: boolean;
   idPessoaSession: string;
-  public hoje:string = new Date().toLocaleDateString();
-  public hojeHora:string = new Date().toLocaleString();
+  public hoje: string = new Date().toLocaleDateString();
+  public hojeHora: string = new Date().toLocaleString();
 
+  public routeId;
 
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
@@ -74,10 +77,21 @@ export class DashboardTarefaComponent implements OnInit {
     public atividadesServices: AtividadesService,
     public dialog: MatDialog,
     public alert: AlertsService,
-   ) { }
+    private route: ActivatedRoute,
+    private router: Router
+
+  ) {
+
+
+
+  }
 
   ngOnInit() {
-    console.log(this.hojeHora);
+
+    // console.log(location.pathname.split('/')[2]);
+
+    this.verificaLogin();
+    this.recebeSessao();
 
     setTimeout(() => {
       this.retornaUsuario();
@@ -92,20 +106,48 @@ export class DashboardTarefaComponent implements OnInit {
     //   this.retornaTarefasDoTitular();
     // }, 5000);
 
+
+
   }
 
-  telaMenor(){
+  telaMenor() {
     return this.mediaMatch.matches;
   }
 
-  verificaTabs(tabSelecionada){
-      console.log(tabSelecionada);
-      if(tabSelecionada == 0){
+  verificaTabs(tabSelecionada) {
+    console.log(tabSelecionada);
+    if (tabSelecionada == 0) {
 
-      }
-      if(tabSelecionada == 1){
+    }
+    if (tabSelecionada == 1) {
 
+    }
+  }
+
+  recebeSessao(){
+    this.routeId = location.pathname.split('/')[2];
+    this.authService.recebeDadosLogin(this.routeId).subscribe(
+      data => {
+        const { userData } = data
+
+        sessionStorage.setItem('user', userData.map(id => id.userId))
+        sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
+        sessionStorage.setItem('token', userData.map(tk => tk.token))
+
+        console.log(userData);
+      },
+      error => {
+        console.log(error)
       }
+    );
+  }
+
+  verificaLogin(){
+    this.routeId = location.pathname.split('/')[2];
+    console.log('ROUTE ID', this.routeId);
+
+    this.authService.recebeDadosLogin(this.routeId);
+
   }
 
   retornaUsuario() {
@@ -113,7 +155,7 @@ export class DashboardTarefaComponent implements OnInit {
       this.userSession = sessionStorage
         .getItem('user').valueOf()
 
-        this.idPessoaSession = sessionStorage
+      this.idPessoaSession = sessionStorage
         .getItem('person').valueOf()
       this.isErrorUsuario = false
     }
@@ -192,15 +234,15 @@ export class DashboardTarefaComponent implements OnInit {
       );
   }
 
-  removeParticipanteTarefa(idParticipante, idTarefa){
-      this.tarefasService.removeParticipante(idParticipante,
-         idTarefa).subscribe(
+  removeParticipanteTarefa(idParticipante, idTarefa) {
+    this.tarefasService.removeParticipante(idParticipante,
+      idTarefa).subscribe(
         data => {
           console.log("Participante removido ", data)
           this.retornaTarefasDoTitular();
         },
         error => {
-          if(error.status == 403){
+          if (error.status == 403) {
             this.alert.snackProibirRemoveParticipante(`
             Esse participante não pode ser removido,
             existe(m) atividade(s) relacionada a ele, para remove-lo, edite a atividade do qual ele é responsavel`, "Ok")
@@ -210,26 +252,26 @@ export class DashboardTarefaComponent implements OnInit {
       );
   }
 
-  marcaAtividadeCompleta(idAtividade, idTarefa){
+  marcaAtividadeCompleta(idAtividade, idTarefa) {
     this.atividadesServices.finalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
       },
       error => {
-          console.log('Erro ao finalizar atividade: ', error, ' ', idAtividade)
+        console.log('Erro ao finalizar atividade: ', error, ' ', idAtividade)
       }
     );
   }
 
-  desmarcaAtividadeCompleta(idAtividade, idTarefa){
+  desmarcaAtividadeCompleta(idAtividade, idTarefa) {
     this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
         console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
       },
       error => {
-          console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)
+        console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)
       }
     );
   }
@@ -379,7 +421,7 @@ export class DashboardTarefaComponent implements OnInit {
       const {
         idTarefa,
         participantesSelecionados,
-       }
+      }
         = result
 
       console.log(`Dialog resultado: `);
@@ -391,15 +433,15 @@ export class DashboardTarefaComponent implements OnInit {
       this.tarefasService.addParticipante(
         idTarefa,
         participantesSelecionados,
-       ).subscribe(
-          data => {
-            console.log(data)
-            this.retornaTarefasDoTitular();
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      ).subscribe(
+        data => {
+          console.log(data)
+          this.retornaTarefasDoTitular();
+        },
+        error => {
+          console.log(error);
+        }
+      );
 
     })
   }

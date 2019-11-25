@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'criar-tarefa', component: CriarTarefaComponent
       },
       {
-        path: 'dashboard-tarefa', component: DashboardTarefaComponent
+        path: 'dashboard-tarefa', redirectTo: '/'
       },
       {
         path: 'lista-tarefas', component: ListaTarefasComponent
