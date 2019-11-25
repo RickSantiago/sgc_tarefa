@@ -60,7 +60,7 @@ export class DashboardTarefaComponent implements OnInit {
   participantesSelecionados: any = [];
   atividadesCriadas: any = [];
   isRotina: boolean;
-  idPessoaSession: string;
+  idPessoaSession;
   public hoje: string = new Date().toLocaleDateString();
   public hojeHora: string = new Date().toLocaleString();
 
@@ -91,7 +91,7 @@ export class DashboardTarefaComponent implements OnInit {
     // console.log(location.pathname.split('/')[2]);
 
 
-      this.verificaLogin();
+      // this.verificaLogin();
       this.recebeSessao();
 
       setTimeout(() => {
@@ -128,28 +128,57 @@ export class DashboardTarefaComponent implements OnInit {
   }
 
   recebeSessao(){
-    this.routeId = location.pathname.split('/')[2];
-    this.authService.recebeDadosLogin(this.routeId).subscribe(
-      data => {
-        const { userData } = data
 
-        sessionStorage.setItem('user', userData.map(id => id.userId))
-        sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
-        sessionStorage.setItem('token', userData.map(tk => tk.token))
+    if(location.pathname.split('/')[1] == 'dashboard-tarefa'){
 
-      },
-      error => {
-        console.log(error)
-      }
-    );
+      this.routeId = location.pathname.split('/')[2];
+      this.authService.recebeDadosLogin(this.routeId).subscribe(
+        data => {
+          const { userData } = data
+
+          sessionStorage.setItem('user', userData.map(id => id.userId))
+          sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
+          sessionStorage.setItem('token', userData.map(tk => tk.token))
+
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
+    if(location.pathname.split('/')[1] != 'dashboard-tarefa' && this.idPessoaSession){
+
+      const idPessoa =  sessionStorage.getItem('person').valueOf()
+      console.log(parseInt(idPessoa))
+
+      this.authService.recebeDadosLogin(parseInt(idPessoa)).subscribe(
+        data => {
+          // const { userData } = data
+
+          // sessionStorage.setItem('user', userData.map(id => id.userId))
+          // sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
+          // sessionStorage.setItem('token', userData.map(tk => tk.token))
+
+        },
+        error => {
+          console.log(error)
+        }
+      );
+      console.log('nao é a mesma url');
+
+    }
+    if(location.pathname.split('/')[1] != 'dashboard-tarefa' && !this.idPessoaSession){
+      this.authService.recebeDadosLogin(null);
+    }
+
   }
 
-  verificaLogin(){
-    this.routeId = location.pathname.split('/')[2];
 
-    this.authService.recebeDadosLogin(this.routeId);
+  // verificaLogin(){
+  //   this.routeId = location.pathname.split('/')[2];
+  //   this.authService.recebeDadosLogin(this.routeId);
 
-  }
+  // }
 
   retornaUsuario() {
     try {
@@ -444,6 +473,13 @@ export class DashboardTarefaComponent implements OnInit {
       );
 
     })
+  }
+
+  logout(){
+      sessionStorage.removeItem('user')
+      sessionStorage.removeItem('person')
+      sessionStorage.removeItem('token')
+      location.reload();
   }
 
 }

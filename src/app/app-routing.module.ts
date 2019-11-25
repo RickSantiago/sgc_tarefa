@@ -16,6 +16,9 @@ const routes: Routes = [
         path: 'criar-tarefa', component: CriarTarefaComponent
       },
       {
+        path: 'logout', component: DashboardTarefaComponent
+      },
+      {
         path: 'dashboard-tarefa', redirectTo: '/'
       },
       {
