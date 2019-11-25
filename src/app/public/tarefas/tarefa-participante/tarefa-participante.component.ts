@@ -33,10 +33,10 @@ export class TarefaParticipanteComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasParticipanteLogado();
 
-    // setInterval(() => {
-    //   console.log('Atualizou')
-    //   this.retornaTarefasParticipanteLogado();
-    // }, 5000);
+    setInterval(() => {
+      console.log('Atualizou')
+      this.retornaTarefasParticipanteLogado();
+    }, 10000);
 
   }
 

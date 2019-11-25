@@ -90,16 +90,19 @@ export class DashboardTarefaComponent implements OnInit {
 
     // console.log(location.pathname.split('/')[2]);
 
-    this.verificaLogin();
-    this.recebeSessao();
 
-    setTimeout(() => {
-      this.retornaUsuario();
-      this.retornaTarefasDoTitular();
-      this.retornaTarefasAtividadeDoParticipante();
-      this.retornaTarefasParticipanteLogado();
-      this.retornaTarefasParticipanteConcluidas();
-    }, 500)
+      this.verificaLogin();
+      this.recebeSessao();
+
+      setTimeout(() => {
+        this.retornaUsuario();
+        this.retornaTarefasDoTitular();
+        this.retornaTarefasAtividadeDoParticipante();
+        this.retornaTarefasParticipanteLogado();
+        this.retornaTarefasParticipanteConcluidas();
+      }, 500)
+
+
 
     // setInterval(() => {
     //   console.log('Atualizou')
@@ -134,7 +137,6 @@ export class DashboardTarefaComponent implements OnInit {
         sessionStorage.setItem('person', userData.map(idPerson => idPerson.pessoaId))
         sessionStorage.setItem('token', userData.map(tk => tk.token))
 
-        console.log(userData);
       },
       error => {
         console.log(error)
@@ -144,7 +146,6 @@ export class DashboardTarefaComponent implements OnInit {
 
   verificaLogin(){
     this.routeId = location.pathname.split('/')[2];
-    console.log('ROUTE ID', this.routeId);
 
     this.authService.recebeDadosLogin(this.routeId);
 
@@ -205,7 +206,7 @@ export class DashboardTarefaComponent implements OnInit {
           const { tarefas } = data;
 
           this.tarefasParticipo = tarefas;
-          console.log(this.tarefasParticipo)
+          // console.log(this.tarefasParticipo)
           this.isErrorTarefa = false
         },
         error => {
@@ -223,7 +224,7 @@ export class DashboardTarefaComponent implements OnInit {
           const { tarefas } = data;
 
           this.tarefasConcluidas = tarefas;
-          console.log(this.tarefasParticipo)
+          // console.log(this.tarefasParticipo)
           this.isErrorTarefa = false
         },
         error => {
@@ -238,7 +239,7 @@ export class DashboardTarefaComponent implements OnInit {
     this.tarefasService.removeParticipante(idParticipante,
       idTarefa).subscribe(
         data => {
-          console.log("Participante removido ", data)
+          // console.log("Participante removido ", data)
           this.retornaTarefasDoTitular();
         },
         error => {
@@ -255,7 +256,7 @@ export class DashboardTarefaComponent implements OnInit {
   marcaAtividadeCompleta(idAtividade, idTarefa) {
     this.atividadesServices.finalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
-        console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
+        // console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
       },
       error => {
@@ -267,7 +268,7 @@ export class DashboardTarefaComponent implements OnInit {
   desmarcaAtividadeCompleta(idAtividade, idTarefa) {
     this.atividadesServices.desfinalizaAtividade(idAtividade, idTarefa, this.idPessoaSession).subscribe(
       data => {
-        console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
+        // console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
       },
       error => {
@@ -290,11 +291,11 @@ export class DashboardTarefaComponent implements OnInit {
 
       const { nome, descricao, idTarefa, participantes, idResponsavel } = result
 
-      console.log(`Dialog resultado: `, 'Nome: ', nome,
-        'Descricao: ', descricao,
-        'idTarefa: ', idTarefa,
-        'Participante : ', participantes,
-        'idResponsavel: ', idResponsavel);
+      // console.log(`Dialog resultado: `, 'Nome: ', nome,
+      //   'Descricao: ', descricao,
+      //   'idTarefa: ', idTarefa,
+      //   'Participante : ', participantes,
+      //   'idResponsavel: ', idResponsavel);
 
       this.atividadesServices.criaAtividade(idTarefa, idResponsavel, descricao).subscribe(
         data => {
@@ -327,11 +328,11 @@ export class DashboardTarefaComponent implements OnInit {
 
       const { idAtividade, participantes, idResponsavel, descricao } = result
 
-      console.log(
-        'idATIVIDAE: ', idAtividade,
-        'Participante : ', participantes,
-        'idResponsavel: ', idResponsavel,
-        'Descricao: ', descricao);
+      // console.log(
+      //   'idATIVIDAE: ', idAtividade,
+      //   'Participante : ', participantes,
+      //   'idResponsavel: ', idResponsavel,
+      //   'Descricao: ', descricao);
 
       this.atividadesServices.updateAtividade(idAtividade, idResponsavel, descricao).subscribe(
         data => {
@@ -375,14 +376,14 @@ export class DashboardTarefaComponent implements OnInit {
         atividadesDaTarefa }
         = result
 
-      console.log(`Dialog resultado: `);
-      console.log('Participantes: ', participantesSelecionados.map(item => item.id));
-      console.log('Descricao: ', descricao);
-      console.log('Prazo: ', prazo);
-      console.log('HoraPrazo: ', horaPrazo);
-      console.log('idTitular: ', idTitular);
-      console.log('É rotina? ', isRotina);
-      console.log('Atividade', atividadesDaTarefa.map(item => item.descricao));
+      // console.log(`Dialog resultado: `);
+      // console.log('Participantes: ', participantesSelecionados.map(item => item.id));
+      // console.log('Descricao: ', descricao);
+      // console.log('Prazo: ', prazo);
+      // console.log('HoraPrazo: ', horaPrazo);
+      // console.log('idTitular: ', idTitular);
+      // console.log('É rotina? ', isRotina);
+      // console.log('Atividade', atividadesDaTarefa.map(item => item.descricao));
 
 
       this.tarefasService.criarTarefa(
@@ -421,13 +422,12 @@ export class DashboardTarefaComponent implements OnInit {
       const {
         idTarefa,
         participantesSelecionados,
-      }
-        = result
+      } = result
 
-      console.log(`Dialog resultado: `);
+      // console.log(`Dialog resultado: `);
 
-      console.log('Participantes: ', participantesSelecionados.map(item => item.id));
-      console.log('idTarefa: ', idTarefa);
+      // console.log('Participantes: ', participantesSelecionados.map(item => item.id));
+      // console.log('idTarefa: ', idTarefa);
 
 
       this.tarefasService.addParticipante(
