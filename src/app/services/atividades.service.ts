@@ -46,6 +46,18 @@ export class AtividadesService {
       )
   }
 
+  deletaAtividade(idAtividade: number):Observable<any>{
+      return this.http.post<any>(`${this.envService.API_URL_TAREFA}excluiAtividade`, {
+        idAtividade: idAtividade,
+
+      }).pipe(
+        tap(result => {
+          this.alert.snackAtualizaAtividade("Atividade excluida", "Ok!");
+          return result
+        })
+      )
+  }
+
   finalizaAtividade(idAtividade, idTarefa, idPessoaSessao):Observable<any>{
     return this.http.post<any>(`${this.envService.API_URL_TAREFA}finalizaAtividade`, {
       idAtividade: idAtividade,

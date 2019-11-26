@@ -1,0 +1,20 @@
+<h2 mat-dialog-title color="warn">
+  Espere! Tem certeza que deseja excluir essa atividade? <strong>{{ data.descricao }}</strong>
+</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Descrição</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.descricao"
+      readonly
+    />
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="primary" mat-button (click)="voltarDialog()">Voltar</button>
+  <button color="warn" mat-raised-button (click)="salvar(data)">
+    Excluir
+  </button>
+</mat-dialog-actions>

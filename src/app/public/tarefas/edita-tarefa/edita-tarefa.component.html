@@ -1,0 +1,91 @@
+<h2 mat-dialog-title>
+  Olá, vamos editar essa tarefa?
+</h2>
+<mat-dialog-content>
+  <mat-slide-toggle
+    class="text-center"
+    style="width: 100%;"
+    color="primary"
+    [(ngModel)]="data.isRotina"
+    checked="data.isRotina"
+    >Esta é uma tarefa de rotina?
+  </mat-slide-toggle>
+
+  <mat-form-field appearance="outline" style="width: 100%; margin-top: 2vh;">
+    <mat-label>Titulo</mat-label>
+    <input
+      matInput
+      placeholder="Altere o titulo?"
+      [(ngModel)]="data.titulo"
+      required
+    />
+
+    <mat-icon matSuffix>edit</mat-icon>
+  </mat-form-field>
+  <mat-form-field
+  *ngIf="data.prazo"
+    appearance="outline"
+    style="width: 50%;"
+    [fxHide.lt-sm]="true"
+  >
+    <input
+      matInput
+      disabled
+      value="Para atribuir prazo a esta tarefa, insira a data e hora de termino"
+    />
+  </mat-form-field>
+  <mat-form-field
+  *ngIf="data.prazo"
+    appearance="outline"
+    style="width: 25%;"
+    [ngStyle.lt-sm]="{ 'width.vw': 70 }"
+  >
+    <mat-label>Quando deve terminar?</mat-label>
+    <input
+      matInput
+      type="text"
+      mask="d0/M0/0000"
+      [(ngModel)]="data.prazo"
+      placeholder="Nos diga a data do prazo"
+      (change)="recebeDataPrazo($event)"
+    />
+
+    <mat-icon matSuffix>today</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field
+  *ngIf="data.prazo"
+    appearance="outline"
+    style="width: 25%;"
+    [ngStyle.lt-sm]="{ 'width.vw': 70 }"
+  >
+    <mat-label>Hora do termino</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Hora"
+      mask="00:00"
+      [(ngModel)]="data.horaPrazo"
+      (change)="recebeHoraPrazo($event)"
+    />
+
+    <mat-icon matSuffix>alarm</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>Descrição</mat-label>
+    <textarea
+      matInput
+      placeholder="Descreva a atividade"
+      [(ngModel)]="data.descricao"
+    >
+    </textarea>
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button color="warn" mat-button (click)="voltarDialog()">Voltar</button>
+  <button class="btn-sucesso" mat-button (click)="salvar(data)">
+    Atualizar
+  </button>
+</mat-dialog-actions>

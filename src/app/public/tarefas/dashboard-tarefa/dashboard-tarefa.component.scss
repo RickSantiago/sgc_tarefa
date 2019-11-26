@@ -9,6 +9,37 @@ body{
   // overflow-y: hidden;
 
 }
+
+.btn-tarefa{
+ .btn-tarefa-edit{
+   display: none;
+ }
+ .btn-tarefa-remove{
+   display: none;
+ }
+}
+.btn-tarefa:hover{
+  .btn-tarefa-edit{
+    display: block;
+    float: left;
+    // margin-right: 1vw;
+    cursor: pointer;
+    margin-right: 0px;
+    margin-left: -10px;
+  }
+  .btn-tarefa-remove{
+    display: block;
+    float: left;
+    // margin-right: 1vw;
+    cursor: pointer;
+    margin-right: 0px;
+    margin-left: -10px;
+  }
+}
+
+.icon-action-task{
+  font-size: 20px;
+}
 .ml-1{
   margin-left: 1vw;
 }

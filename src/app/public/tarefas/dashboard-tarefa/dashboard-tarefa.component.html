@@ -133,19 +133,44 @@
             *ngFor="let task of tarefas"
           >
             <mat-card
-              class="mat-elevation-z6"
+              class="mat-elevation-z6  btn-tarefa"
               [ngClass]="{ 'card-prazo': task.prazo.split(' ')[0] == hoje }"
             >
-              <mat-card-title class="mb-2 ">
+              <mat-card-title class="mb-2">
                 <mat-icon
                   *ngIf="task.prazo"
-                  matTooltip="Encerra em: {{ task.prazo }}"
+                  matTooltip="Encerra em: {{ task.prazo }} {{task.horaPrazo}}"
                   matSuffix
                   class="icon-prazo"
                 >
                   {{ task.prazo ? "today" : "" }}
                 </mat-icon>
+
                 {{ task.titulo }}
+
+                <!-- BTNS DE AÇÕES TAREFAS -->
+                <span class="btn-tarefa-edit">
+                  <button
+                    mat-icon-button
+                    matTooltip="Editar tarefa"
+                    color="primary"
+                    (click)="openDialogEditaTarefa(task)"
+                  >
+                    <mat-icon class="icon-action-task">create</mat-icon>
+                  </button>
+                </span>
+
+                <span class="btn-tarefa-remove">
+                  <button
+                    mat-icon-button
+                    matPreffix
+                    matTooltip="Excluir tarefa"
+                    color="warn"
+                    (click)="openDialogExcluirTarefa(task)"
+                  >
+                    <mat-icon class="icon-action-task">delete_forever</mat-icon>
+                  </button>
+                </span>
 
                 <small class="f-right"> #{{ task.id }} </small>
               </mat-card-title>
@@ -160,7 +185,7 @@
                       matSuffix
                       color="{{ task.rotina ? 'primary' : 'warn' }}"
                     >
-                      {{ task.rotina ? "alarm" : "" }}
+                      {{ task.rotina ? "loop" : "" }}
                     </mat-icon>
                   </span>
                 </strong>
@@ -280,8 +305,19 @@
                             openDialogEditarAtividade(atv, task.participantes)
                           "
                         >
-                          <mat-icon class="icon-resp" matSuffix
-                            >textsms</mat-icon
+                          <mat-icon class="icon-resp" color="primary" matSuffix
+                            >create</mat-icon
+                          >
+                        </button>
+                        <button
+                          mat-icon-button
+                          matTooltip="Excluir atividade"
+                          matTooltipPosition="right"
+                          color="warn"
+                          (click)="openDialogExcluirAtividade(atv)"
+                        >
+                          <mat-icon class="" color="warn" matSuffix
+                            >delete_outline</mat-icon
                           >
                         </button>
                       </span>

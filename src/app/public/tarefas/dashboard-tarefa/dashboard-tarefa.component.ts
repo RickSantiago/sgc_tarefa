@@ -1,3 +1,6 @@
+import { ExcluiTarefaComponent } from './../exclui-tarefa/exclui-tarefa.component';
+import { EditaTarefaComponent } from './../edita-tarefa/edita-tarefa.component';
+import { ExcluiAtividadeComponent } from './../exclui-atividade/exclui-atividade.component';
 import { AlertsService } from './../../../services/alerts.service';
 import { ListaTarefasComponent } from './../lista-tarefas/lista-tarefas.component';
 import { ResponsavelAtividadeComponent } from './../responsavel-atividade/responsavel-atividade.component';
@@ -91,16 +94,16 @@ export class DashboardTarefaComponent implements OnInit {
     // console.log(location.pathname.split('/')[2]);
 
 
-      // this.verificaLogin();
-      this.recebeSessao();
+    // this.verificaLogin();
+    this.recebeSessao();
 
-      setTimeout(() => {
-        this.retornaUsuario();
-        this.retornaTarefasDoTitular();
-        this.retornaTarefasAtividadeDoParticipante();
-        this.retornaTarefasParticipanteLogado();
-        this.retornaTarefasParticipanteConcluidas();
-      }, 500)
+    setTimeout(() => {
+      this.retornaUsuario();
+      this.retornaTarefasDoTitular();
+      this.retornaTarefasAtividadeDoParticipante();
+      this.retornaTarefasParticipanteLogado();
+      this.retornaTarefasParticipanteConcluidas();
+    }, 500)
 
 
 
@@ -127,9 +130,9 @@ export class DashboardTarefaComponent implements OnInit {
     }
   }
 
-  recebeSessao(){
+  recebeSessao() {
 
-    if(location.pathname.split('/')[1] == 'dashboard-tarefa'){
+    if (location.pathname.split('/')[1] == 'dashboard-tarefa') {
 
       this.routeId = location.pathname.split('/')[2];
       this.authService.recebeDadosLogin(this.routeId).subscribe(
@@ -146,9 +149,9 @@ export class DashboardTarefaComponent implements OnInit {
         }
       );
     }
-    if(location.pathname.split('/')[1] != 'dashboard-tarefa' && this.idPessoaSession){
+    if (location.pathname.split('/')[1] != 'dashboard-tarefa' && this.idPessoaSession) {
 
-      const idPessoa =  sessionStorage.getItem('person').valueOf()
+      const idPessoa = sessionStorage.getItem('person').valueOf()
       console.log(parseInt(idPessoa))
 
       this.authService.recebeDadosLogin(parseInt(idPessoa)).subscribe(
@@ -167,12 +170,11 @@ export class DashboardTarefaComponent implements OnInit {
       console.log('nao é a mesma url');
 
     }
-    if(location.pathname.split('/')[1] != 'dashboard-tarefa' && !this.idPessoaSession){
+    if (location.pathname.split('/')[1] != 'dashboard-tarefa' && !this.idPessoaSession) {
       this.authService.recebeDadosLogin(null);
     }
 
   }
-
 
   // verificaLogin(){
   //   this.routeId = location.pathname.split('/')[2];
@@ -213,6 +215,7 @@ export class DashboardTarefaComponent implements OnInit {
         }
       );
   }
+
   retornaTarefasAtividadeDoParticipante() {
     this.tarefasService
       .retornaTarefasParticipante(this.idPessoaSession).subscribe(
@@ -306,6 +309,133 @@ export class DashboardTarefaComponent implements OnInit {
     );
   }
 
+  openDialogTarefa() {
+
+    let dialogRef = this.dialog.open(CriarTarefaComponent, {
+      width: '90%',
+      data: {
+        idTitular: this.idPessoaSession,
+        titulo: this.tituloTarefa,
+        prazo: this.prazo,
+        horaPrazo: this.horaPrazo,
+        descricao: this.descricaoTarefa,
+        participantesSelecionados: this.participantesSelecionados,
+        atividadesDaTarefa: this.atividadesCriadas,
+        isRotina: this.isRotina
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const {
+        idTitular,
+        titulo,
+        prazo,
+        horaPrazo,
+        descricao,
+        participantesSelecionados,
+        isRotina,
+        atividadesDaTarefa }
+        = result
+
+      this.tarefasService.criarTarefa(
+        idTitular,
+        titulo,
+        descricao,
+        prazo,
+        horaPrazo,
+        isRotina,
+        participantesSelecionados,
+        atividadesDaTarefa).subscribe(
+          data => {
+            console.log(data)
+            this.retornaTarefasDoTitular();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+
+    })
+  }
+
+  openDialogEditaTarefa(task) {
+
+    let dialogRef = this.dialog.open(EditaTarefaComponent, {
+      width: '90%',
+      data: {
+        idTarefa: task.id,
+        titulo: task.titulo,
+        prazo: task.prazo,
+        horaPrazo: task.horaPrazo,
+        descricao: task.descricao,
+        isRotina: task.rotina,
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const {
+        idTarefa,
+        titulo,
+        prazo,
+        horaPrazo,
+        descricao,
+        isRotina }
+        = result
+
+      this.tarefasService.editaTarefa(
+        idTarefa,
+        titulo,
+        descricao,
+        prazo,
+        horaPrazo,
+        isRotina,
+      ).subscribe(
+        data => {
+          console.log(data)
+          this.retornaTarefasDoTitular();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+    })
+  }
+
+  openDialogExcluirTarefa(task) {
+
+    let dialogRef = this.dialog.open(ExcluiTarefaComponent, {
+      width: '60%',
+      data: {
+        idTarefa: task.id, titulo: task.titulo
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const { idTarefa } = result
+
+      this.tarefasService.deletaTarefa(idTarefa).subscribe(
+        data => {
+          this.retornaTarefasDoTitular();
+        },
+        error => {
+          if (error.status == 403) {
+            this.alert.snackProibirRemoveParticipante(`Não foi possui excluir
+           a tarefa,
+          verifique se ela possui alguma atividade incompleta
+           com responsavel atribuido a ela.`, "Ok")
+          }
+          console.log("Erro: ", error, ' status ', error.status);
+        }
+      );
+
+    })
+  }
+
   openDialogAtividade(task) {
 
     let dialogRef = this.dialog.open(CriaAtividadeComponent, {
@@ -375,66 +505,45 @@ export class DashboardTarefaComponent implements OnInit {
     })
   }
 
+  openDialogExcluirAtividade(atv) {
 
-  openDialogTarefa() {
+    console.log(atv);
 
-    let dialogRef = this.dialog.open(CriarTarefaComponent, {
+    let dialogRef = this.dialog.open(ExcluiAtividadeComponent, {
       width: '90%',
       data: {
-        idTitular: this.idPessoaSession,
-        titulo: this.tituloTarefa,
-        prazo: this.prazo,
-        horaPrazo: this.horaPrazo,
-        descricao: this.descricaoTarefa,
-        participantesSelecionados: this.participantesSelecionados,
-        atividadesDaTarefa: this.atividadesCriadas,
-        isRotina: this.isRotina
+        idAtividade: atv.id, descricao: atv.descricao,
+        responsavelAtual: atv.responsavel
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      const {
-        idTitular,
-        titulo,
-        prazo,
-        horaPrazo,
-        descricao,
-        participantesSelecionados,
-        isRotina,
-        atividadesDaTarefa }
-        = result
+      const { idAtividade } = result
 
-      // console.log(`Dialog resultado: `);
-      // console.log('Participantes: ', participantesSelecionados.map(item => item.id));
-      // console.log('Descricao: ', descricao);
-      // console.log('Prazo: ', prazo);
-      // console.log('HoraPrazo: ', horaPrazo);
-      // console.log('idTitular: ', idTitular);
-      // console.log('É rotina? ', isRotina);
-      // console.log('Atividade', atividadesDaTarefa.map(item => item.descricao));
+      // console.log(
+      //   'idATIVIDAE: ', idAtividade,
+      //   'Participante : ', participantes,
+      //   'idResponsavel: ', idResponsavel,
+      //   'Descricao: ', descricao);
 
-
-      this.tarefasService.criarTarefa(
-        idTitular,
-        titulo,
-        descricao,
-        prazo,
-        horaPrazo,
-        isRotina,
-        participantesSelecionados,
-        atividadesDaTarefa).subscribe(
-          data => {
-            console.log(data)
-            this.retornaTarefasDoTitular();
-          },
-          error => {
-            console.log(error);
+      this.atividadesServices.deletaAtividade(idAtividade).subscribe(
+        data => {
+          this.retornaTarefasDoTitular();
+        },
+        error => {
+          if (error.status == 403) {
+            this.alert.snackProibirRemoveParticipante(`Não foi possui excluir a atividade,
+          verifique se ela possui algum responsavel atribuido.`, "Ok")
           }
-        );
+          console.log("Erro: ", error, ' status ', error.status);
+        }
+      );
 
     })
   }
+
+
 
   openDialogParticipante(idTarefa) {
 
@@ -475,11 +584,11 @@ export class DashboardTarefaComponent implements OnInit {
     })
   }
 
-  logout(){
-      sessionStorage.removeItem('user')
-      sessionStorage.removeItem('person')
-      sessionStorage.removeItem('token')
-      location.reload();
+  logout() {
+    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('person')
+    sessionStorage.removeItem('token')
+    location.reload();
   }
 
 }

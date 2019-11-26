@@ -23,7 +23,10 @@ import '../styles.scss';
 import { AddParticipanteComponent } from './public/tarefas/add-participante/add-participante.component';
 import { ResponsavelAtividadeComponent } from './public/tarefas/responsavel-atividade/responsavel-atividade.component';
 import { TarefaParticipanteComponent } from './public/tarefas/tarefa-participante/tarefa-participante.component';
-import { TarefaPartipanteConcluidaComponent } from './public/tarefas/tarefa-partipante-concluida/tarefa-partipante-concluida.component'
+import { TarefaPartipanteConcluidaComponent } from './public/tarefas/tarefa-partipante-concluida/tarefa-partipante-concluida.component';
+import { ExcluiAtividadeComponent } from './public/tarefas/exclui-atividade/exclui-atividade.component';
+import { ExcluiTarefaComponent } from './public/tarefas/exclui-tarefa/exclui-tarefa.component';
+import { EditaTarefaComponent } from './public/tarefas/edita-tarefa/edita-tarefa.component'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -40,12 +43,18 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     ResponsavelAtividadeComponent,
     TarefaParticipanteComponent,
     TarefaPartipanteConcluidaComponent,
+    ExcluiAtividadeComponent,
+    ExcluiTarefaComponent,
+    EditaTarefaComponent,
   ],
   entryComponents: [
     CriaAtividadeComponent,
     CriarTarefaComponent,
     AddParticipanteComponent,
     ResponsavelAtividadeComponent,
+    ExcluiAtividadeComponent,
+    EditaTarefaComponent,
+    ExcluiTarefaComponent
   ],
   imports: [
     BrowserModule,

@@ -22,8 +22,6 @@ export class ResponsavelAtividadeComponent {
       this.formDialog = fb.group({
         idResponsavel:[null],
       })
-
-
     }
 
   retornaResponsavel(event){
