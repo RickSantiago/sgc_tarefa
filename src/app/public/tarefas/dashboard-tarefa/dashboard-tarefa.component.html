@@ -32,12 +32,14 @@
     </button> -->
 <mat-toolbar class="tb-custom-color">
   <mat-toolbar-row>
-    <span class="white-text">SGC - Tarefas</span>
+    <span (click)="recarregarPage()" class="white-text">
+      SGC - Tarefas
+    </span>
     <span class="example-spacer"></span>
     <button
       (click)="openDialogTarefa()"
       mat-stroked-button
-      color="primary"
+      style="color: #2C2C54;"
       class="bg-card-task"
     >
     <mat-icon class="icon-size-1" matSuffix>add_circle</mat-icon>
@@ -129,14 +131,15 @@
           <div
             fxFlex.md="100%"
             fxFlex.gt-sm="100%"
-            [ngStyle]="{ margin: '2vh' }"
+            [ngStyle]="{ margin: '1vh' }"
             *ngFor="let task of tarefas"
+            class="back-task"
           >
 
           <!-- <h1>{{ task.titulo }} ({{task.atividades.length}})</h1> -->
 
              <mat-card
-              class="mat-elevation-z6  btn-tarefa"
+              class="mat-elevation-z2  btn-tarefa"
               [ngClass]="{ 'card-prazo': task.prazo.split(' ')[0] == hoje }"
             >
               <mat-card-title class="mb-2">
@@ -149,9 +152,12 @@
                   {{ task.prazo ? "today" : "" }}
                 </mat-icon>
 
-                {{ task.titulo }} ({{task.atividades.length}})
 
-                <!-- BTNS DE AÇÕES TAREFAS -->
+               {{ task.titulo }}
+                     <small style="color:grey; font-weight: lighter;">
+                      ({{task.atividades.length}})
+                    </small>
+
                 <span class="btn-tarefa-edit">
                   <button
                     mat-icon-button
@@ -175,10 +181,18 @@
                   </button>
                 </span>
 
-                <small class="f-right"> #{{ task.id }} </small>
+                <small class="f-right">
+                    #{{ task.id }}
+                </small>
+                <!-- <button mat-icon-button    (click)="panelTaks.toggle()">
+                    <mat-icon>settings_applications </mat-icon>
+                  </button> -->
+
+
+
               </mat-card-title>
               <mat-card-subtitle>
-                Criada por
+                <!-- Criada por
                 <strong
                   >{{ task.titular.split(" ")[0] }}
                   <span class="pl-2">
@@ -194,7 +208,7 @@
                 </strong>
                 <span style="float: right;">
                   {{ task.criacao }}
-                </span>
+                </span> -->
               </mat-card-subtitle>
               <mat-card-content>
                 <p *ngIf="task.descricao" class="card-desc">
@@ -204,7 +218,65 @@
                   Descrição: Sem descrição
                 </p>
 
-                <div>
+                <mat-expansion-panel #panelTaks class="mat-elevation-z0 ">
+                    <mat-expansion-panel-header>
+                      Informações
+                    </mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <div>
+                            <strong
+                              *ngIf="task.participantes.length != 0"
+                            >Participantes:
+                          </strong>
+                          <strong *ngIf="task.participantes.length == 0"
+                            >Sem participantes.
+                          </strong>
+                          <button
+                            mat-icon-button
+                            class="f-right btn-add-person mb-2 particip-btn-add"
+                            matTooltip="Adicionar participante(s)"
+                            (click)="openDialogParticipante(task.id)"
+                          >
+                            <mat-icon>group_add</mat-icon>
+                          </button>
+
+                          <mat-chip-list
+                            *ngIf="task.participantes.length != 0"
+                            #chipList
+                            aria-label="Selecionar participantes"
+                          >
+                            <mat-chip
+                              *ngFor="let part of task.participantes"
+                              class="bg-info"
+                              matTooltip="{{ part.nome }}"
+                            >
+                              {{ part.nome.split(" ")[0] }}
+                              <mat-icon
+                                matChipRemove
+                                *ngIf="removivel"
+                                (click)="removeParticipanteTarefa(part.id, task.id)"
+                                matTooltip="Remover participante"
+                                matTooltipPosition="above"
+                              >
+                                cancel
+                              </mat-icon>
+                            </mat-chip>
+                          </mat-chip-list>
+                          <mat-chip-list
+                            *ngIf="task.participantes.length == 0"
+                            #chipList
+                            aria-label="Selecionar participantes"
+                          >
+                            <mat-chip class="bg-danger">
+                              Você não adicionou participantes.
+                            </mat-chip>
+                          </mat-chip-list>
+                        </div>
+                    </mat-panel-description>
+                  </mat-expansion-panel>
+
+                <!--
+                  <div>
                     <strong
                       *ngIf="task.participantes.length != 0"
                     >Participantes:
@@ -253,12 +325,13 @@
                     </mat-chip>
                   </mat-chip-list>
                 </div>
+              -->
 
               </mat-card-content> <!-- FIM DO CARD CONTENT ANTECIPADO -->
             </mat-card> <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
                 <div class="mt-4">
-                  <strong class="font-stronger">
+                  <strong >
                     Atividades
                   </strong>
                   <!-- <button
@@ -271,20 +344,24 @@
                     <mat-icon>post_add</mat-icon>
                   </button> -->
 
-                  <button mat-flat-button
+                  <!-- <button mat-flat-button
                   class="f-right btn-add-atv custom-small-btn-1"
                     aria-label="Adicionar uma nova tarefa"
                     (click)="openDialogAtividade(task)"
                     matTooltip="Criar uma nova atividade"
                   >
                       <mat-icon>post_add</mat-icon>
-                    </button>
+                    </button> -->
+
+                    <button mat-mini-fab class="f-right btn-add-atv tb-custom-color white-text-f">
+                        <mat-icon>post_add</mat-icon>
+                      </button>
 
                   <div class="mt-2" id="scroll-at">
 
                     <div *ngFor="let atv of task.atividades">
                         <mat-card
-                        class="mat-elevation-z6  btn-tarefa mb-2"
+                        class="mat-elevation-z0  btn-tarefa mb-1"
                         [ngClass]="{ 'card-prazo': task.prazo.split(' ')[0] == hoje }"
                       >
                       <mat-checkbox

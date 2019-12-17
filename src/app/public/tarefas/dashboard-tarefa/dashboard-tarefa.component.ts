@@ -25,7 +25,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-dashboard-tarefa',
   templateUrl: './dashboard-tarefa.component.html',
   styleUrls: ['./dashboard-tarefa.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class DashboardTarefaComponent implements OnInit {
 
@@ -68,9 +68,29 @@ export class DashboardTarefaComponent implements OnInit {
   public hojeHora: string = new Date().toLocaleString();
 
   public routeId;
-
+  public isAtivo:boolean = true;
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
+
+  fabButtons = [
+    {
+      icon: 'timeline'
+    },
+    {
+      icon: 'view_headline'
+    },
+    {
+      icon: 'room'
+    },
+    {
+      icon: 'lightbulb_outline'
+    },
+    {
+      icon: 'lock'
+    }
+  ];
+  buttons = [];
+  fabTogglerState = 'inactive';
 
   constructor(
 
@@ -83,9 +103,29 @@ export class DashboardTarefaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
 
-  ) {
+  ) {}
+
+  showItems() {
+    this.fabTogglerState = 'active';
+    this.buttons = this.fabButtons;
+  }
+
+  hideItems() {
+    this.fabTogglerState = 'inactive';
+    this.buttons = [];
+  }
+
+  onToggleFab(event, idTask) {
+    // console.log('EVENT ', event.target);
+    console.log('EVENT id ', event.target.id);
+    console.log('ID TASK ', idTask);
+
+      this.buttons.length ? this.hideItems() : this.showItems();
 
 
+    // if(event.target.id == idTask){
+    //   this.buttons.length ? this.hideItems() : this.showItems();
+    // }
 
   }
 
@@ -589,6 +629,10 @@ export class DashboardTarefaComponent implements OnInit {
     sessionStorage.removeItem('person')
     sessionStorage.removeItem('token')
     location.reload();
+  }
+
+  recarregarPage(){
+    location.reload(true);
   }
 
 }
