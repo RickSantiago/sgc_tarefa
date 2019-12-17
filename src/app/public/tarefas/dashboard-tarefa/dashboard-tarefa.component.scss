@@ -4,10 +4,14 @@
   color: white;
 }
 body{
-  background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
-  color: white;
+  // background-image: radial-gradient(circle, #051937, #04213f, #042946, #05314d, #083953);
+  // color: white;
+  background-color: #ecf0f1;
   // overflow-y: hidden;
+}
 
+.tb-custom-color{
+  background-color:#2C2C54;
 }
 
 .btn-tarefa{
@@ -354,3 +358,27 @@ font-size: 18px;
 	background-color: rgb(126, 159, 185);
 }
 
+.icon-size-1{
+  font-size: 20px!important;
+  padding-top: 2px;
+}
+
+.main-color-1{
+  color: #051937;
+}
+
+.card-min-height{
+  min-height: 472px;
+}
+.pt-1rem{
+  padding-top: 1rem;
+}
+.no-padding{
+  padding: 0!important;
+}
+
+.custom-small-btn-1{
+  min-width: 34px!important;
+  line-height: 2px!important;
+  padding: 0!important;
+}
