@@ -112,21 +112,26 @@ body {
   background-color: rgb(235, 235, 235);
   color: rgb(51, 51, 51);
 }
-.progress-prazo{
+.progress-prazo {
   .mat-progress-bar-fill::after {
     background-color: #b5883f;
+  }
+  .mat-progress-bar-buffer {
+    background-color: #e6dac8;
+  }
 }
-.mat-progress-bar-buffer{
-  background-color: #e6dac8;
-}
-}
-.progress-prazo-final{
+.progress-prazo-final {
   .mat-progress-bar-fill::after {
     background-color: #9b3434;
+  }
+  .mat-progress-bar-buffer {
+    background-color: #c7baba;
+  }
 }
-.mat-progress-bar-buffer{
-  background-color: #c7baba;
-}
+.checkbox-text{
+  label{
+    white-space: unset !important;
+  }
 }
 .side-card {
   min-height: 15vh;
@@ -482,19 +487,19 @@ mat-tab-label {
 .text-capitalize {
   text-transform: capitalize;
 }
-.hover-action{
-  button{
+.hover-action {
+  button {
     // display: none;
     opacity: 0.2;
   }
 }
-.hover-action:hover{
-  button{
+.hover-action:hover {
+  button {
     // display:inline;
     opacity: 1;
   }
 }
-.border-progress-bar{
+.border-progress-bar {
   border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
 }

@@ -157,7 +157,7 @@
             >
               <mat-card-title class="mb-2 text-capitalize">
                 <mat-icon
-                (click)="isAtivo = !isAtivo"
+                  (click)="isAtivo = !isAtivo"
                   *ngIf="task.prazo"
                   matTooltip="Encerra em: {{ task.prazo }} {{ task.horaPrazo }}"
                   matSuffix
@@ -413,6 +413,7 @@
                     }"
                   >
                     <mat-checkbox
+                      class="checkbox-text"
                       color="primary"
                       *ngIf="atv.finalizada"
                       style="text-decoration: line-through;"
@@ -434,18 +435,27 @@
                       name="atividade"
                       value="{{ atv.id }}"
                       (click)="marcaAtividadeCompleta(atv.id, task.id)"
-                      class="text-upper"
-                      matTooltip="{{ atv.responsavel }}"
-                      matTooltipPosition="above"
+                      class="text-upper checkbox-text"
+
                     >
                       <span>
                         {{ atv.descricao }}
                       </span>
                     </mat-checkbox>
-                    <small *ngIf="atv.responsavel">
+                    <!-- <small *ngIf="atv.responsavel">
                       - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
-                    </small>
+                    </small> -->
+
+
                     <span *ngIf="!atv.finalizada" class="btn-atv-action">
+                      <button
+                        mat-icon-button
+                        *ngIf="atv.responsavel"
+                        matTooltip="{{ atv.responsavel }}"
+                        matTooltipPosition="below"
+                      >
+                        <mat-icon class="icon-resp" matSuffix>person</mat-icon>
+                      </button>
                       <button
                         mat-icon-button
                         matTooltip="Editar atividade"
@@ -471,6 +481,8 @@
                         >
                       </button>
                     </span>
+                 <br>
+                 <br>
                   </mat-card>
                 </div>
               </div>
