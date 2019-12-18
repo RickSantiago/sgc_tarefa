@@ -488,7 +488,7 @@ export class DashboardTarefaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
 
-      const { nome, descricao, idTarefa, participantes, idResponsavel } = result
+      const { descricao, idTarefa, idResponsavel } = result
 
       // console.log(`Dialog resultado: `, 'Nome: ', nome,
       //   'Descricao: ', descricao,

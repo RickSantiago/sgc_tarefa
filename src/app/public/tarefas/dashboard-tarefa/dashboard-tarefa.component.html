@@ -42,7 +42,7 @@
       style="color: #2C2C54;"
       class="bg-card-task"
     >
-    <mat-icon class="icon-size-1" matSuffix>add_circle</mat-icon>
+      <mat-icon class="icon-size-1" matSuffix>add_circle</mat-icon>
       Criar nova tarefa
     </button>
     <a (click)="logout()" mat-button color="accent" class="ml-1">
@@ -135,30 +135,52 @@
             *ngFor="let task of tarefas"
             class="back-task"
           >
+            <!-- <h1>{{ task.titulo }} ({{task.atividades.length}})</h1> -->
 
-          <!-- <h1>{{ task.titulo }} ({{task.atividades.length}})</h1> -->
+            <mat-progress-bar
+              *ngIf="!task.prazo"
+              class="border-progress-bar"
+              mode="determinate"
+              value="45"
+            ></mat-progress-bar>
+            <mat-progress-bar
+              *ngIf="task.prazo"
+              class="border-progress-bar"
+              mode="determinate"
+              value="70"
+              [ngClass]="isAtivo ? 'progress-prazo' : 'progress-prazo-final'"
+            ></mat-progress-bar>
 
-             <mat-card
+            <mat-card
               class="mat-elevation-z2  btn-tarefa"
               [ngClass]="{ 'card-prazo': task.prazo.split(' ')[0] == hoje }"
             >
-              <mat-card-title class="mb-2">
+              <mat-card-title class="mb-2 text-capitalize">
                 <mat-icon
+                (click)="isAtivo = !isAtivo"
                   *ngIf="task.prazo"
-                  matTooltip="Encerra em: {{ task.prazo }} {{task.horaPrazo}}"
+                  matTooltip="Encerra em: {{ task.prazo }} {{ task.horaPrazo }}"
                   matSuffix
-                  class="icon-prazo"
+                  class="icon-resp"
                 >
                   {{ task.prazo ? "today" : "" }}
                 </mat-icon>
+                <mat-icon
+                  *ngIf="task.rotina"
+                  matTooltip="É uma tarefa de Rotina"
+                  class="icon-resp"
+                  matSuffix
+                  color="{{ task.rotina ? 'primary' : 'warn' }}"
+                >
+                  {{ task.rotina ? "loop" : "" }}
+                </mat-icon>
 
+                {{ task.titulo }}
+                <small style="color:grey; font-weight: lighter;">
+                  ({{ task.atividades.length }})
+                </small>
 
-               {{ task.titulo }}
-                     <small style="color:grey; font-weight: lighter;">
-                      ({{task.atividades.length}})
-                    </small>
-
-                <span class="btn-tarefa-edit">
+                <!-- <span class="btn-tarefa-edit">
                   <button
                     mat-icon-button
                     matTooltip="Editar tarefa"
@@ -179,17 +201,12 @@
                   >
                     <mat-icon class="icon-action-task">delete_forever</mat-icon>
                   </button>
-                </span>
+                </span> -->
 
-                <small class="f-right">
-                    #{{ task.id }}
-                </small>
+                <small class="f-right"> #{{ task.id }} </small>
                 <!-- <button mat-icon-button    (click)="panelTaks.toggle()">
                     <mat-icon>settings_applications </mat-icon>
                   </button> -->
-
-
-
               </mat-card-title>
               <mat-card-subtitle>
                 <!-- Criada por
@@ -219,61 +236,86 @@
                 </p>
 
                 <mat-expansion-panel #panelTaks class="mat-elevation-z0 ">
-                    <mat-expansion-panel-header>
-                      Informações
-                    </mat-expansion-panel-header>
-                    <mat-panel-description>
-                        <div>
-                            <strong
-                              *ngIf="task.participantes.length != 0"
-                            >Participantes:
-                          </strong>
-                          <strong *ngIf="task.participantes.length == 0"
-                            >Sem participantes.
-                          </strong>
-                          <button
-                            mat-icon-button
-                            class="f-right btn-add-person mb-2 particip-btn-add"
-                            matTooltip="Adicionar participante(s)"
-                            (click)="openDialogParticipante(task.id)"
-                          >
-                            <mat-icon>group_add</mat-icon>
-                          </button>
+                  <mat-expansion-panel-header>
+                    Mais opções
+                  </mat-expansion-panel-header>
+                  <mat-panel-description>
+                    <div>
+                      <strong *ngIf="task.participantes.length != 0"
+                        >Participantes:
+                      </strong>
+                      <strong *ngIf="task.participantes.length == 0"
+                        >Sem participantes.
+                      </strong>
+                      <button
+                        mat-icon-button
+                        class="f-right btn-add-person mb-2 particip-btn-add"
+                        matTooltip="Adicionar participante(s)"
+                        (click)="openDialogParticipante(task.id)"
+                      >
+                        <mat-icon>group_add</mat-icon>
+                      </button>
 
-                          <mat-chip-list
-                            *ngIf="task.participantes.length != 0"
-                            #chipList
-                            aria-label="Selecionar participantes"
+                      <mat-chip-list
+                        *ngIf="task.participantes.length != 0"
+                        #chipList
+                        aria-label="Selecionar participantes"
+                      >
+                        <mat-chip
+                          *ngFor="let part of task.participantes"
+                          class="bg-info"
+                          matTooltip="{{ part.nome }}"
+                        >
+                          {{ part.nome.split(" ")[0] }}
+                          <mat-icon
+                            matChipRemove
+                            *ngIf="removivel"
+                            (click)="removeParticipanteTarefa(part.id, task.id)"
+                            matTooltip="Remover participante"
+                            matTooltipPosition="above"
                           >
-                            <mat-chip
-                              *ngFor="let part of task.participantes"
-                              class="bg-info"
-                              matTooltip="{{ part.nome }}"
-                            >
-                              {{ part.nome.split(" ")[0] }}
-                              <mat-icon
-                                matChipRemove
-                                *ngIf="removivel"
-                                (click)="removeParticipanteTarefa(part.id, task.id)"
-                                matTooltip="Remover participante"
-                                matTooltipPosition="above"
-                              >
-                                cancel
-                              </mat-icon>
-                            </mat-chip>
-                          </mat-chip-list>
-                          <mat-chip-list
-                            *ngIf="task.participantes.length == 0"
-                            #chipList
-                            aria-label="Selecionar participantes"
-                          >
-                            <mat-chip class="bg-danger">
-                              Você não adicionou participantes.
-                            </mat-chip>
-                          </mat-chip-list>
-                        </div>
-                    </mat-panel-description>
-                  </mat-expansion-panel>
+                            cancel
+                          </mat-icon>
+                        </mat-chip>
+                      </mat-chip-list>
+                      <mat-chip-list
+                        *ngIf="task.participantes.length == 0"
+                        #chipList
+                        aria-label="Selecionar participantes"
+                      >
+                        <mat-chip class="bg-danger">
+                          Você não adicionou participantes.
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                  </mat-panel-description>
+                  <mat-action-row>
+                    <button
+                      size="small"
+                      mat-button
+                      matTooltip="Editar tarefa"
+                      color="primary"
+                      (click)="openDialogEditaTarefa(task)"
+                    >
+                      <mat-icon class="icon-action-task">create</mat-icon>
+
+                      Editar
+                    </button>
+                    <button
+                      size="small"
+                      mat-raised-button
+                      matPreffix
+                      matTooltip="Excluir tarefa"
+                      color="warn"
+                      (click)="openDialogExcluirTarefa(task)"
+                    >
+                      <mat-icon class="icon-action-task"
+                        >delete_forever</mat-icon
+                      >
+                      Excluir
+                    </button>
+                  </mat-action-row>
+                </mat-expansion-panel>
 
                 <!--
                   <div>
@@ -326,15 +368,16 @@
                   </mat-chip-list>
                 </div>
               -->
+              </mat-card-content>
+              <!-- FIM DO CARD CONTENT ANTECIPADO -->
+            </mat-card>
+            <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
-              </mat-card-content> <!-- FIM DO CARD CONTENT ANTECIPADO -->
-            </mat-card> <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
-
-                <div class="mt-4">
-                  <strong >
-                    Atividades
-                  </strong>
-                  <!-- <button
+            <div class="mt-4">
+              <strong>
+                Atividades
+              </strong>
+              <!-- <button
                     mat-icon-button
                     class="f-right btn-add-atv"
                     aria-label="Adicionar uma nova tarefa"
@@ -344,7 +387,7 @@
                     <mat-icon>post_add</mat-icon>
                   </button> -->
 
-                  <!-- <button mat-flat-button
+              <!-- <button mat-flat-button
                   class="f-right btn-add-atv custom-small-btn-1"
                     aria-label="Adicionar uma nova tarefa"
                     (click)="openDialogAtividade(task)"
@@ -353,85 +396,88 @@
                       <mat-icon>post_add</mat-icon>
                     </button> -->
 
-                    <button mat-mini-fab class="f-right btn-add-atv tb-custom-color white-text-f">
-                        <mat-icon>post_add</mat-icon>
-                      </button>
+              <button
+                (click)="openDialogAtividade(task)"
+                mat-mini-fab
+                class="f-right btn-add-atv tb-custom-color white-text-f"
+              >
+                <mat-icon>post_add</mat-icon>
+              </button>
 
-                  <div class="mt-2" id="scroll-at">
-
-                    <div *ngFor="let atv of task.atividades">
-                        <mat-card
-                        class="mat-elevation-z0  btn-tarefa mb-1"
-                        [ngClass]="{ 'card-prazo': task.prazo.split(' ')[0] == hoje }"
-                      >
-                      <mat-checkbox
-                        color="primary"
-                        *ngIf="atv.finalizada"
-                        style="text-decoration: line-through;"
-                        name="atividade"
-                        checked="{{ atv.finalizada }}"
-                        value="{{ atv.id }}"
-                        (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
-                        ><strong
-                          class="text-upper"
-                          matTooltip="{{ atv.responsavel }}"
-                          matTooltipPosition="above"
-                        >
-                          {{ atv.descricao }}
-                        </strong>
-                      </mat-checkbox>
-
-                      <mat-checkbox
-                        *ngIf="!atv.finalizada"
-                        name="atividade"
-                        value="{{ atv.id }}"
-                        (click)="marcaAtividadeCompleta(atv.id, task.id)"
+              <div class="mt-2" id="scroll-at">
+                <div *ngFor="let atv of task.atividades">
+                  <mat-card
+                    class="mat-elevation-z0  btn-tarefa mb-1 hover-action"
+                    [ngClass]="{
+                      'card-prazo': task.prazo.split(' ')[0] == hoje
+                    }"
+                  >
+                    <mat-checkbox
+                      color="primary"
+                      *ngIf="atv.finalizada"
+                      style="text-decoration: line-through;"
+                      name="atividade"
+                      checked="{{ atv.finalizada }}"
+                      value="{{ atv.id }}"
+                      (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
+                      ><strong
                         class="text-upper"
                         matTooltip="{{ atv.responsavel }}"
                         matTooltipPosition="above"
                       >
-                        <span>
-                          {{ atv.descricao }}
-                        </span>
-                      </mat-checkbox>
-                      <small *ngIf="atv.responsavel">
-                        - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
-                      </small>
-                      <span *ngIf="!atv.finalizada" class="btn-set-responsavel">
-                        <button
-                          mat-icon-button
-                          matTooltip="Editar atividade"
-                          matTooltipPosition="right"
-                          color="warn"
-                          (click)="
-                            openDialogEditarAtividade(atv, task.participantes)
-                          "
-                        >
-                          <mat-icon class="icon-resp" color="primary" matSuffix
-                            >create</mat-icon
-                          >
-                        </button>
-                        <button
-                          mat-icon-button
-                          matTooltip="Excluir atividade"
-                          matTooltipPosition="right"
-                          color="warn"
-                          (click)="openDialogExcluirAtividade(atv)"
-                        >
-                          <mat-icon class="" color="warn" matSuffix
-                            >delete_outline</mat-icon
-                          >
-                        </button>
+                        {{ atv.descricao }}
+                      </strong>
+                    </mat-checkbox>
+
+                    <mat-checkbox
+                      *ngIf="!atv.finalizada"
+                      name="atividade"
+                      value="{{ atv.id }}"
+                      (click)="marcaAtividadeCompleta(atv.id, task.id)"
+                      class="text-upper"
+                      matTooltip="{{ atv.responsavel }}"
+                      matTooltipPosition="above"
+                    >
+                      <span>
+                        {{ atv.descricao }}
                       </span>
-                    </mat-card>
-                    </div>
-
-
-                  </div>
+                    </mat-checkbox>
+                    <small *ngIf="atv.responsavel">
+                      - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
+                    </small>
+                    <span *ngIf="!atv.finalizada" class="btn-atv-action">
+                      <button
+                        mat-icon-button
+                        matTooltip="Editar atividade"
+                        matTooltipPosition="right"
+                        color="warn"
+                        (click)="
+                          openDialogEditarAtividade(atv, task.participantes)
+                        "
+                      >
+                        <mat-icon class="icon-resp" color="primary" matSuffix
+                          >create</mat-icon
+                        >
+                      </button>
+                      <button
+                        mat-icon-button
+                        matTooltip="Excluir atividade"
+                        matTooltipPosition="right"
+                        color="warn"
+                        (click)="openDialogExcluirAtividade(atv)"
+                      >
+                        <mat-icon class="" color="warn" matSuffix
+                          >delete_outline</mat-icon
+                        >
+                      </button>
+                    </span>
+                  </mat-card>
                 </div>
-              <!-- </mat-card-content> -->
-              <mat-card-actions>
-                <!-- <button
+              </div>
+            </div>
+            <!-- </mat-card-content> -->
+            <mat-card-actions>
+              <!-- <button
                       class="btn-new-atv"
                       mat-mini-fab
                       color="primary"
@@ -439,7 +485,7 @@
                     >
                       <mat-icon>add</mat-icon>
                     </button> -->
-              </mat-card-actions>
+            </mat-card-actions>
             <!-- </mat-card> -->
           </div>
         </div>
@@ -468,6 +514,7 @@
             matBadge="{{ tarefasParticipo.length }}"
             matBadgeOverlap="false"
             matBadgeColor="accent"
+            id="bagParticipo"
             >Tarefas que participo</span
           >
         </ng-template>

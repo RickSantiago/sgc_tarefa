@@ -28,6 +28,7 @@ import {
   MatSlideToggleModule,
   MatTooltipModule,
   MatBadgeModule,
+  MatProgressBarModule,
   MAT_DATE_LOCALE
 
 } from '@angular/material';
@@ -62,7 +63,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDialogModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressBarModule
 
   ],
   exports: [
@@ -93,7 +95,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatDialogModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressBarModule
 
   ],
   providers: [
