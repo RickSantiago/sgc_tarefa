@@ -112,6 +112,11 @@ body {
   background-color: rgb(235, 235, 235);
   color: rgb(51, 51, 51);
 }
+
+.mat-progress-bar {
+  height: 10px!important;
+}
+
 .progress-prazo {
   .mat-progress-bar-fill::after {
     background-color: #b5883f;
