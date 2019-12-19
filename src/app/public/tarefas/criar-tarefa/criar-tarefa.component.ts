@@ -36,6 +36,8 @@ export class CriarTarefaComponent implements OnInit {
   public participanteControl = new FormControl();
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  public isRotinaCheckbox: boolean = false;
+
   visible = true;
   selectable = true;
   removable = true;
@@ -234,5 +236,10 @@ export class CriarTarefaComponent implements OnInit {
   voltarDialog(): void {
     this.dialogRef.close();
   }
+
+verificaIsRotina(event){
+  this.isRotinaCheckbox = event.checked;
+  console.log(this.isRotinaCheckbox);
+}
 
 }

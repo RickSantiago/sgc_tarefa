@@ -6,6 +6,7 @@
     class="text-center"
     style="width: 100%;"
     color="primary"
+    (change)="verificaIsRotina($event)"
     [(ngModel)]="data.isRotina"
     >Esta é uma tarefa de rotina?
   </mat-slide-toggle>
@@ -32,6 +33,7 @@
     <mat-label>Quando deve terminar?</mat-label>
     <input
       matInput
+      [disabled]="isRotinaCheckbox"
       type="text"
       mask="d0/M0/0000"
       placeholder="Nos diga a data do prazo"
@@ -45,6 +47,7 @@
     <mat-label>Hora do termino</mat-label>
     <input
       matInput
+      [disabled]="isRotinaCheckbox"
       type="text"
       placeholder="Hora"
       mask="Hh:m0"
