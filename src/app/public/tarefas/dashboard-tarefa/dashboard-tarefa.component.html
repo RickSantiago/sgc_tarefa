@@ -201,7 +201,7 @@
                   Descrição: Sem descrição
                 </p>
 
-                <mat-expansion-panel #panelTaks class="mat-elevation-z0 ">
+                <mat-expansion-panel #panelTaks class="mat-elevation-z0">
                   <mat-expansion-panel-header>
                     Mais opções
                   </mat-expansion-panel-header>
@@ -339,10 +339,107 @@
             </mat-card>
             <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
-            <div class="mt-4">
-              <strong>
-                Atividades
-              </strong>
+            <div class="mt-5-real">
+
+              
+              <button
+                (click)="openDialogAtividade(task)"
+                mat-mini-fab
+                class="f-right btn-add-atv tb-custom-color white-text-f"
+              >
+                <mat-icon>post_add</mat-icon>
+              </button>
+              <br>
+
+              <mat-expansion-panel style="background: none!important;" class="mat-elevation-z0 clearfix-right">
+                <mat-expansion-panel-header>
+                  <strong>
+                    Ver todas as atividades
+                  </strong>
+                </mat-expansion-panel-header>
+                <mat-panel-description class="no-margin-r">
+                  <div class="mt-2" style="width: 100%!important;" id="scroll-at">
+                    <div *ngFor="let atv of task.atividades">
+                      <mat-card
+                        class="mat-elevation-z0  btn-tarefa mb-1 hover-action"
+                      >
+                        <mat-checkbox
+                          class="checkbox-text"
+                          color="primary"
+                          *ngIf="atv.finalizada"
+                          style="text-decoration: line-through;"
+                          name="atividade"
+                          checked="{{ atv.finalizada }}"
+                          value="{{ atv.id }}"
+                          (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
+                          ><strong
+                            class="text-upper"
+                            matTooltip="{{ atv.responsavel }}"
+                            matTooltipPosition="above"
+                          >
+                            {{ atv.descricao }}
+                          </strong>
+                        </mat-checkbox>
+    
+                        <mat-checkbox
+                          *ngIf="!atv.finalizada"
+                          name="atividade"
+                          value="{{ atv.id }}"
+                          (click)="marcaAtividadeCompleta(atv.id, task.id)"
+                          class="text-upper checkbox-text"
+    
+                        >
+                          <span>
+                            {{ atv.descricao }}
+                          </span>
+                        </mat-checkbox>
+                        <!-- <small *ngIf="atv.responsavel">
+                          - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
+                        </small> -->
+    
+                        <span *ngIf="!atv.finalizada" class="btn-atv-action">
+                          <button
+                            mat-icon-button
+                            *ngIf="atv.responsavel"
+                            matTooltip="{{ atv.responsavel }}"
+                            matTooltipPosition="below"
+                          >
+                            <mat-icon class="icon-resp" matSuffix>person</mat-icon>
+                          </button>
+                          <button
+                            mat-icon-button
+                            matTooltip="Editar atividade"
+                            matTooltipPosition="right"
+                            color="warn"
+                            (click)="
+                              openDialogEditarAtividade(atv, task.participantes)
+                            "
+                          >
+                            <mat-icon class="icon-resp" color="primary" matSuffix
+                              >create</mat-icon
+                            >
+                          </button>
+                          <button
+                            mat-icon-button
+                            matTooltip="Excluir atividade"
+                            matTooltipPosition="right"
+                            color="warn"
+                            (click)="openDialogExcluirAtividade(atv)"
+                          >
+                            <mat-icon class="" color="warn" matSuffix
+                              >delete_outline</mat-icon
+                            >
+                          </button>
+                        </span>
+                     <br>
+                     <br>
+                      </mat-card>
+                    </div>
+                  </div>
+                  </mat-panel-description>
+                </mat-expansion-panel>
+
+              
               <!-- <button
                     mat-icon-button
                     class="f-right btn-add-atv"
@@ -362,93 +459,8 @@
                       <mat-icon>post_add</mat-icon>
                     </button> -->
 
-              <button
-                (click)="openDialogAtividade(task)"
-                mat-mini-fab
-                class="f-right btn-add-atv tb-custom-color white-text-f"
-              >
-                <mat-icon>post_add</mat-icon>
-              </button>
 
-              <div class="mt-2" id="scroll-at">
-                <div *ngFor="let atv of task.atividades">
-                  <mat-card
-                    class="mat-elevation-z0  btn-tarefa mb-1 hover-action"
-                  >
-                    <mat-checkbox
-                      class="checkbox-text"
-                      color="primary"
-                      *ngIf="atv.finalizada"
-                      style="text-decoration: line-through;"
-                      name="atividade"
-                      checked="{{ atv.finalizada }}"
-                      value="{{ atv.id }}"
-                      (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
-                      ><strong
-                        class="text-upper"
-                        matTooltip="{{ atv.responsavel }}"
-                        matTooltipPosition="above"
-                      >
-                        {{ atv.descricao }}
-                      </strong>
-                    </mat-checkbox>
-
-                    <mat-checkbox
-                      *ngIf="!atv.finalizada"
-                      name="atividade"
-                      value="{{ atv.id }}"
-                      (click)="marcaAtividadeCompleta(atv.id, task.id)"
-                      class="text-upper checkbox-text"
-
-                    >
-                      <span>
-                        {{ atv.descricao }}
-                      </span>
-                    </mat-checkbox>
-                    <!-- <small *ngIf="atv.responsavel">
-                      - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
-                    </small> -->
-
-
-                    <span *ngIf="!atv.finalizada" class="btn-atv-action">
-                      <button
-                        mat-icon-button
-                        *ngIf="atv.responsavel"
-                        matTooltip="{{ atv.responsavel }}"
-                        matTooltipPosition="below"
-                      >
-                        <mat-icon class="icon-resp" matSuffix>person</mat-icon>
-                      </button>
-                      <button
-                        mat-icon-button
-                        matTooltip="Editar atividade"
-                        matTooltipPosition="right"
-                        color="warn"
-                        (click)="
-                          openDialogEditarAtividade(atv, task.participantes)
-                        "
-                      >
-                        <mat-icon class="icon-resp" color="primary" matSuffix
-                          >create</mat-icon
-                        >
-                      </button>
-                      <button
-                        mat-icon-button
-                        matTooltip="Excluir atividade"
-                        matTooltipPosition="right"
-                        color="warn"
-                        (click)="openDialogExcluirAtividade(atv)"
-                      >
-                        <mat-icon class="" color="warn" matSuffix
-                          >delete_outline</mat-icon
-                        >
-                      </button>
-                    </span>
-                 <br>
-                 <br>
-                  </mat-card>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

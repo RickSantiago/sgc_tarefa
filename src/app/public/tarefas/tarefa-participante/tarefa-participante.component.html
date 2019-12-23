@@ -7,7 +7,7 @@
 </div>
 <div fxLayout="column" fxFlex="100%" fxLayout.gt-md="row" class="mt-2" gdColumns.gt-md="32vw 32vw 32vw"
   fxLayoutAlign="center space-around">
-  <div fxFlex.md="100%" fxFlex.gt-sm="100%" [ngStyle]="{ margin: '2vh' }" *ngFor="let task of tarefas">
+  <div fxFlex.md="100%" fxFlex.gt-sm="100%" [ngStyle]="{ margin: '2vh' }" *ngFor="let task of tarefas" class="back-task">
 
     <mat-progress-bar *ngIf=" task.prazo && task.isAtrasado" class="border-progress-bar progress-prazo-final"
       mode="determinate" value="{{task.porcentagemConcluido}}"></mat-progress-bar>

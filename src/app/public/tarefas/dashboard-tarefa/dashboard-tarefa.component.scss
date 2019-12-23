@@ -175,6 +175,10 @@ body {
 .mt-5 {
   margin-top: 10vh !important;
 }
+
+.mt-5-real{
+  margin-top: 5vh !important;
+}
 .pb-2 {
   padding-bottom: 2vh;
 }
@@ -508,4 +512,15 @@ mat-tab-label {
 .border-progress-bar {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.clearfix-right {
+  clear: right;
+}
+.no-margin-r{
+  margin-right: 0!important;
+}
+
+.mat-expansion-panel-body{
+  padding: 0.2em 0.2em!important;
 }
