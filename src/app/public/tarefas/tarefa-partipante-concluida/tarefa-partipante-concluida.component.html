@@ -9,7 +9,7 @@
   <div fxFlex.md="100%" fxFlex.gt-sm="100%" [ngStyle]="{ margin: '1vh' }" *ngFor="let task of tarefas"
     class="back-task">
 
-    <mat-progress-bar class="progress-concluida border-progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
+    <mat-progress-bar class="progress-concluida border-progress-bar" mode="determinate" value="100"></mat-progress-bar>
 
     <mat-card class="mat-elevation-z6 btn-tarefa">
       <mat-card-title class="mb-2 text-capitalize">
