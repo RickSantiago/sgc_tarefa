@@ -78,13 +78,19 @@
     </mat-card>
 
     <div class="mt-4">
-        <strong>
-          Atividades
-        </strong>
+      <mat-expansion-panel style="background: none!important;" class="mat-elevation-z0 clearfix-right">
+        <mat-expansion-panel-header>
+          <strong>
+            Ver todas as atividades
+          </strong>
+        </mat-expansion-panel-header>
+        <mat-panel-description class="no-margin-r">
+          <div class="mt-2" style="width: 100%!important;" id="scroll-at">
+            <div *ngFor="let atv of task.atividades">
+              <mat-card
+                class="mat-elevation-z0  btn-tarefa mb-1 hover-action"
+              >
 
-        <div class="mt-2" id="scroll-at">
-          <div *ngFor="let atv of task.atividades">
-            <mat-card class="mat-elevation-z0  btn-tarefa mb-1 hover-action">
               <mat-checkbox class="checkbox-text" color="primary" *ngIf="atv.finalizada"
                 style="text-decoration: line-through;" name="atividade" checked="{{ atv.finalizada }}"
                 value="{{ atv.id }}" (click)="desmarcaAtividadeCompleta(atv.id, task.id)"><strong class="text-upper"
@@ -102,6 +108,8 @@
             </mat-card>
           </div>
         </div>
+      </mat-panel-description>
+    </mat-expansion-panel>
       </div>
   </div>
 </div>
