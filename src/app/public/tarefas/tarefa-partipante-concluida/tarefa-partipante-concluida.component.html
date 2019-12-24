@@ -8,14 +8,9 @@
   fxLayoutAlign="center space-around">
   <div fxFlex.md="100%" fxFlex.gt-sm="100%" [ngStyle]="{ margin: '1vh' }" *ngFor="let task of tarefas"
     class="back-task">
-    <mat-progress-bar *ngIf=" task.prazo && task.isAtrasado" class="border-progress-bar progress-prazo-final"
-      mode="determinate" value="{{task.porcentagemConcluido}}"></mat-progress-bar>
 
-    <mat-progress-bar *ngIf="task.prazo && task.isPrazo && !task.isAtrasado" class="border-progress-bar progress-prazo"
-      mode="determinate" value="{{task.porcentagemConcluido}}"></mat-progress-bar>
+    <mat-progress-bar class="progress-concluida border-progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
 
-    <mat-progress-bar *ngIf="!task.prazo" class="border-progress-bar" mode="determinate"
-      value="{{task.porcentagemConcluido}}"></mat-progress-bar>
     <mat-card class="mat-elevation-z6 btn-tarefa">
       <mat-card-title class="mb-2 text-capitalize">
         <mat-icon (click)="isAtivo = !isAtivo" *ngIf="task.prazo"
@@ -88,32 +83,30 @@
         <mat-panel-description class="no-margin-r">
           <div class="mt-2" style="width: 100%!important;" id="scroll-at">
             <div *ngFor="let atv of task.atividades">
-              <mat-card
-                class="mat-elevation-z0  btn-tarefa mb-1 hover-action"
-              >
-              
-            <mat-checkbox color="primary" *ngIf="atv.finalizada && task.idTitular != idPessoaSession"
-              style="text-decoration: line-through;" name="atividade" checked="{{ atv.finalizada }}"
-              value="{{ atv.id }}" disabled><strong class="text-upper" matTooltip="{{ atv.responsavel }}"
-                matTooltipPosition="above">
-                {{ atv.descricao }}
-              </strong>
-            </mat-checkbox>
+              <mat-card class="mat-elevation-z0  btn-tarefa mb-1 hover-action">
 
-            <mat-checkbox *ngIf="atv.finalizada && task.idTitular == idPessoaSession" name="atividade"
-              value="{{ atv.id }}" class="text-upper" color="primary" checked="{{ atv.finalizada }}"
-              matTooltip="{{ atv.responsavel }}" matTooltipPosition="above"
-              (click)="desmarcaAtividadeCompleta(atv.id, task.id)">
-              <strong class="text-upper" matTooltip="{{ atv.responsavel }}" matTooltipPosition="above">
-                {{ atv.descricao }}
-              </strong>
-            </mat-checkbox>
+                <mat-checkbox color="primary" *ngIf="atv.finalizada && task.idTitular != idPessoaSession"
+                  style="text-decoration: line-through;" name="atividade" checked="{{ atv.finalizada }}"
+                  value="{{ atv.id }}" disabled><strong class="text-upper" matTooltip="{{ atv.responsavel }}"
+                    matTooltipPosition="above">
+                    {{ atv.descricao }}
+                  </strong>
+                </mat-checkbox>
 
-            <small *ngIf="atv.responsavel">
-              - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
-            </small>
-            <span *ngIf="!atv.finalizada" class="btn-set-responsavel">
-              <!-- <button
+                <mat-checkbox *ngIf="atv.finalizada && task.idTitular == idPessoaSession" name="atividade"
+                  value="{{ atv.id }}" class="text-upper" color="primary" checked="{{ atv.finalizada }}"
+                  matTooltip="{{ atv.responsavel }}" matTooltipPosition="above"
+                  (click)="desmarcaAtividadeCompleta(atv.id, task.id)">
+                  <strong class="text-upper" matTooltip="{{ atv.responsavel }}" matTooltipPosition="above">
+                    {{ atv.descricao }}
+                  </strong>
+                </mat-checkbox>
+
+                <small *ngIf="atv.responsavel">
+                  - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
+                </small>
+                <span *ngIf="!atv.finalizada" class="btn-set-responsavel">
+                  <!-- <button
                 mat-icon-button
                 matTooltip="Editar atividade"
                 matTooltipPosition="right"
@@ -124,14 +117,14 @@
               >
                 <mat-icon class="icon-resp"  matSuffix>textsms</mat-icon>
               </button> -->
-            </span>
-            <br>
-            <br>
-          </mat-card>
-        </div>
-      </div>
-    </mat-panel-description>
-  </mat-expansion-panel>
+                </span>
+                <br>
+                <br>
+              </mat-card>
+            </div>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel>
     </div>
   </div>
 </div>

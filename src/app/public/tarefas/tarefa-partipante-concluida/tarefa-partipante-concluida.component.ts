@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TarefasService } from 'src/app/services/tarefas.service';
 import { AtividadesService } from 'src/app/services/atividades.service';
@@ -7,7 +7,8 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-tarefa-partipante-concluida',
   templateUrl: './tarefa-partipante-concluida.component.html',
-  styleUrls: ['./tarefa-partipante-concluida.component.scss']
+  styleUrls: ['./tarefa-partipante-concluida.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TarefaPartipanteConcluidaComponent implements OnInit {
   public tarefas: any = [];
@@ -32,9 +33,9 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasParticipanteConcluidas();
 
-    setInterval(() => {
-      this.retornaTarefasParticipanteConcluidas();
-    }, 10000);
+    // setInterval(() => {
+    //   this.retornaTarefasParticipanteConcluidas();
+    // }, 10000);
 
   }
 
