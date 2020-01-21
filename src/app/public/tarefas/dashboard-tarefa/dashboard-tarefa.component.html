@@ -1,10 +1,11 @@
+<mat-toolbar class="tb-custom-color header" [ngStyle.xs]="{ height: '100px' }">
+  <!-- <mat-toolbar-row> -->
+  <div (click)="recarregarPage()" class="white-text title">
+    SGC - Tarefas
+  </div>
+  <!-- <span class="example-spacer"></span> -->
 
-<mat-toolbar class="tb-custom-color">
-  <mat-toolbar-row>
-    <span (click)="recarregarPage()" class="white-text">
-      SGC - Tarefas
-    </span>
-    <span class="example-spacer"></span>
+  <div class="container-button">
     <button
       (click)="openDialogTarefa()"
       mat-stroked-button
@@ -18,11 +19,12 @@
       <mat-icon class="icon-size-1" matSuffix>logout</mat-icon>
       Sair
     </a>
+  </div>
 
-    <!-- <button mat-icon-button color="primary">
+  <!-- <button mat-icon-button color="primary">
                 <mat-icon aria-hidden="false">refresh</mat-icon>
               </button> -->
-  </mat-toolbar-row>
+  <!-- </mat-toolbar-row> -->
 </mat-toolbar>
 
 <section
@@ -39,8 +41,12 @@
     [ngStyle.gt-md]="{ height: '110vh' }"
     [ngStyle.gt-sm]="{ height: '88.2vh' }"
   >
-
-    <mat-tab-group #tabRef mat-align-tabs="center" color="primary">
+    <mat-tab-group
+      #tabRef
+      mat-align-tabs="center"
+      color="primary"
+      (selectedTabChange)="clique($event)"
+    >
       <mat-tab style="opacity: 1 !important;">
         <ng-template matTabLabel id="tab1">
           <span
@@ -90,32 +96,28 @@
             *ngFor="let task of tarefas"
             class="back-task"
           >
-
             <mat-progress-bar
-              *ngIf=" task.prazo && task.isAtrasado"
+              *ngIf="task.prazo && task.isAtrasado"
               class="border-progress-bar progress-prazo-final"
               mode="determinate"
-              value="{{task.porcentagemConcluido}}"
+              value="{{ task.porcentagemConcluido }}"
             ></mat-progress-bar>
 
             <mat-progress-bar
               *ngIf="task.prazo && task.isPrazo && !task.isAtrasado"
               class="border-progress-bar progress-prazo"
               mode="determinate"
-              value="{{task.porcentagemConcluido}}"
+              value="{{ task.porcentagemConcluido }}"
             ></mat-progress-bar>
 
             <mat-progress-bar
               *ngIf="!task.prazo"
               class="border-progress-bar"
               mode="determinate"
-              value="{{task.porcentagemConcluido}}"
+              value="{{ task.porcentagemConcluido }}"
             ></mat-progress-bar>
 
-            <mat-card
-              class="mat-elevation-z2  btn-tarefa"
-
-            >
+            <mat-card class="mat-elevation-z2  btn-tarefa">
               <mat-card-title class="mb-2 text-capitalize">
                 <mat-icon
                   (click)="isAtivo = !isAtivo"
@@ -143,9 +145,7 @@
 
                 <small class="f-right"> #{{ task.id }} </small>
               </mat-card-title>
-              <mat-card-subtitle>
-
-              </mat-card-subtitle>
+              <mat-card-subtitle> </mat-card-subtitle>
               <mat-card-content>
                 <p *ngIf="task.descricao" class="card-desc">
                   Descrição: {{ task.descricao }}
@@ -236,15 +236,12 @@
                     </button>
                   </mat-action-row>
                 </mat-expansion-panel>
-
               </mat-card-content>
               <!-- FIM DO CARD CONTENT ANTECIPADO -->
             </mat-card>
             <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
             <div class="mt-5-real">
-
-
               <button
                 (click)="openDialogAtividade(task)"
                 mat-mini-fab
@@ -252,16 +249,23 @@
               >
                 <mat-icon>post_add</mat-icon>
               </button>
-              <br>
+              <br />
 
-              <mat-expansion-panel style="background: none!important;" class="mat-elevation-z0 clearfix-right">
+              <mat-expansion-panel
+                style="background: none!important;"
+                class="mat-elevation-z0 clearfix-right"
+              >
                 <mat-expansion-panel-header>
                   <strong>
                     Ver todas as atividades
                   </strong>
                 </mat-expansion-panel-header>
                 <mat-panel-description class="no-margin-r">
-                  <div class="mt-2" style="width: 100%!important;" id="scroll-at">
+                  <div
+                    class="mt-2"
+                    style="width: 100%!important;"
+                    id="scroll-at"
+                  >
                     <div *ngFor="let atv of task.atividades">
                       <mat-card
                         class="mat-elevation-z0  btn-tarefa mb-1 hover-action ajst-padding"
@@ -290,7 +294,6 @@
                           value="{{ atv.id }}"
                           (click)="marcaAtividadeCompleta(atv.id, task.id)"
                           class="text-upper checkbox-text"
-
                         >
                           <span>
                             {{ atv.descricao }}
@@ -307,7 +310,9 @@
                             matTooltip="{{ atv.responsavel }}"
                             matTooltipPosition="below"
                           >
-                            <mat-icon class="icon-resp" matSuffix>person</mat-icon>
+                            <mat-icon class="icon-resp" matSuffix
+                              >person</mat-icon
+                            >
                           </button>
                           <button
                             mat-icon-button
@@ -318,7 +323,10 @@
                               openDialogEditarAtividade(atv, task.participantes)
                             "
                           >
-                            <mat-icon class="icon-resp" color="primary" matSuffix
+                            <mat-icon
+                              class="icon-resp"
+                              color="primary"
+                              matSuffix
                               >create</mat-icon
                             >
                           </button>
@@ -334,14 +342,13 @@
                             >
                           </button>
                         </span>
-                     <br>
-                     <br>
+                        <br />
+                        <br />
                       </mat-card>
                     </div>
                   </div>
-                  </mat-panel-description>
-                </mat-expansion-panel>
-
+                </mat-panel-description>
+              </mat-expansion-panel>
             </div>
           </div>
         </div>
@@ -350,10 +357,25 @@
       <mat-tab>
         <ng-template matTabLabel>
           <span
+            *ngIf="tarefasAtribuidas.length == 0"
             matBadge="{{ tarefasAtribuidas.length }}"
             matBadgeOverlap="false"
             matBadgeColor="bg-info"
-            >Pendentes</span
+            >Sem pendências</span
+          >
+          <span
+            *ngIf="tarefasAtribuidas.length == 1"
+            matBadge="{{ tarefasAtribuidas.length }}"
+            matBadgeOverlap="false"
+            matBadgeColor="bg-info"
+            >Atividade Pendente</span
+          >
+          <span
+            *ngIf="tarefasAtribuidas.length > 1"
+            matBadge="{{ tarefasAtribuidas.length }}"
+            matBadgeOverlap="false"
+            matBadgeColor="bg-info"
+            >Atividades Pendentes</span
           >
         </ng-template>
         <h1 class="text-center mt-5" *ngIf="tarefasAtribuidas.length == 0">

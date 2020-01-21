@@ -17,6 +17,18 @@ body {
   // overflow-y: hidden;
 }
 
+.header{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container-button{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1 0;
+}
+
 .tb-custom-color {
   background-color: #2c2c54 !important;
 }

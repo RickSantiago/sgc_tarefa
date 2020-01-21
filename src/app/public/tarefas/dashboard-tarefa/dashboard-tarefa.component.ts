@@ -105,6 +105,12 @@ export class DashboardTarefaComponent implements OnInit {
 
   ) {}
 
+  clique(event){
+    console.log("Clicado");
+    console.log(event);
+
+  }
+
   showItems() {
     this.fabTogglerState = 'active';
     this.buttons = this.fabButtons;

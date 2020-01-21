@@ -19,6 +19,7 @@ export class TarefaParticipanteComponent implements OnInit {
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
   isErrorTarefa: boolean;
+  public isAtivo:boolean = true;
 
   constructor(
 
@@ -33,10 +34,10 @@ export class TarefaParticipanteComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasParticipanteLogado();
 
-    setInterval(() => {
-      console.log('Atualizou')
-      this.retornaTarefasParticipanteLogado();
-    }, 10000);
+    // setInterval(() => {
+    //   console.log('Atualizou')
+      // this.retornaTarefasParticipanteLogado();
+    // }, 10000);
 
   }
 
