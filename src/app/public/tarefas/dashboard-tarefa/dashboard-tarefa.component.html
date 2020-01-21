@@ -250,26 +250,38 @@
             <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
             <div class="mt-5-real">
-              <button
-                (click)="openDialogAtividade(task)"
-                mat-mini-fab
-                class="f-right btn-add-atv tb-custom-color white-text-f"
-              >
-                <mat-icon>post_add</mat-icon>
-              </button>
-              <br />
-
               <mat-expansion-panel
                 style="background: none!important;"
                 class="mat-elevation-z0 clearfix-right"
               >
                 <mat-expansion-panel-header>
-                  <strong>
-                    Ver todas as atividades
-                  </strong>
-                  <span class="qtd-atv">
-                    {{ task.atividades.length }}
-                  </span>
+
+                  <div class="container-atv">
+
+                    <div class="container-title-atv">
+                      <strong>
+                        Ver todas as atividades
+                      </strong>
+                      <span class="qtd-atv">
+                        {{ task.atividades.length }}
+                      </span>
+                    </div>
+
+                    <div class="container-add-atv">
+                      <button
+                      matTooltip="Adicionar atividade"
+                      matTooltipPosition="above"
+                        (click)="openDialogAtividade(task)"
+                        mat-raised-button
+                        color="primary"
+                      >
+
+                        <mat-icon matPrefix>post_add</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+
                 </mat-expansion-panel-header>
                 <mat-panel-description class="no-margin-r">
                   <div

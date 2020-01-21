@@ -106,7 +106,8 @@ body {
 }
 .btn-add-atv {
   color: #3a068d;
-  margin-top: -1em !important;
+
+  // margin-top: -1em !important;
 }
 .bg-info {
   background-color: rgb(123, 143, 190);
@@ -575,4 +576,28 @@ mat-tab-label {
 }
 .wh-space{
   white-space: normal;
+}
+
+.container-atv{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-title-atv{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.container-add-atv{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  padding-right: 15px;
+}
+.container-add-atv button{
+  min-width: 56px;
+
 }
