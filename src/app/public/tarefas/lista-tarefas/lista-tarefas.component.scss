@@ -221,5 +221,20 @@ font-size: 18px;
   margin-right: 2vw;
 }
 
+.container-task-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-titulo{
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.wh-space{
+  white-space: normal;
+}
+
+
 // scroll bar styles
 /* Let's get this party started */

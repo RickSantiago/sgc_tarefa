@@ -18,6 +18,7 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
   isErrorTarefa: boolean;
+  public isAtivo:boolean = true;
   public hoje:string = new Date().toLocaleDateString();
 
   constructor(
@@ -33,9 +34,9 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasParticipanteConcluidas();
 
-    setInterval(() => {
-      this.retornaTarefasParticipanteConcluidas();
-    }, 10000);
+    // setInterval(() => {
+    //   this.retornaTarefasParticipanteConcluidas();
+    // }, 10000);
 
   }
 

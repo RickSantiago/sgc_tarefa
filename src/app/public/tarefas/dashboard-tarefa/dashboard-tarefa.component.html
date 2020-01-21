@@ -119,36 +119,38 @@
 
             <mat-card class="mat-elevation-z2  btn-tarefa">
               <mat-card-title class="mb-2 text-capitalize">
-                <div id="titulo-task" class="pt-1rem">
-                  <mat-icon
-                    (click)="isAtivo = !isAtivo"
-                    *ngIf="task.prazo"
-                    matTooltip="Encerra em: {{ task.prazo }} {{
-                      task.horaPrazo
-                    }}"
-                    matSuffix
-                    class="icon-resp"
-                  >
-                    {{ task.prazo ? "today" : "" }}
-                  </mat-icon>
-                  <mat-icon
-                    *ngIf="task.rotina"
-                    matTooltip="É uma tarefa de Rotina"
-                    class="icon-resp"
-                    matSuffix
-                    color="{{ task.rotina ? 'primary' : 'warn' }}"
-                  >
-                    {{ task.rotina ? "loop" : "" }}
-                  </mat-icon>
+                <div id="titulo-task" class="container-task-header">
+                  <div class="container-titulo">
+                    <mat-icon
+                      (click)="isAtivo = !isAtivo"
+                      *ngIf="task.prazo"
+                      matTooltip="Encerra em: {{ task.prazo }} {{
+                        task.horaPrazo
+                      }}"
+                      matSuffix
+                      class="icon-resp"
+                    >
+                      {{ task.prazo ? "today" : "" }}
+                    </mat-icon>
 
-                 <span class="titulo-task">
-                  {{ task.titulo }}
-                 </span>
+                    <mat-icon
+                      *ngIf="task.rotina"
+                      matTooltip="É uma tarefa de Rotina"
+                      class="icon-resp"
+                      matSuffix
+                      color="{{ task.rotina ? 'primary' : 'warn' }}"
+                    >
+                      {{ task.rotina ? "loop" : "" }}
+                    </mat-icon>
 
-                  <!-- <small style="color:grey; font-weight: lighter;">
-                        ({{ task.atividades.length }})
-                      </small> -->
-                  <small class="f-right"> #{{ task.id }} </small>
+                    <span class="titulo-task">
+                      {{ task.titulo }}
+                    </span>
+                  </div>
+
+                  <div class="container-qtd-atv">
+                    <small> #{{ task.id }} </small>
+                  </div>
                 </div>
               </mat-card-title>
               <mat-card-subtitle> </mat-card-subtitle>
@@ -262,12 +264,11 @@
                 class="mat-elevation-z0 clearfix-right"
               >
                 <mat-expansion-panel-header>
-
-                    <strong>
-                      Ver todas as atividades
-                    </strong>
-                    <span class="qtd-atv">
-                      {{ task.atividades.length }}
+                  <strong>
+                    Ver todas as atividades
+                  </strong>
+                  <span class="qtd-atv">
+                    {{ task.atividades.length }}
                   </span>
                 </mat-expansion-panel-header>
                 <mat-panel-description class="no-margin-r">

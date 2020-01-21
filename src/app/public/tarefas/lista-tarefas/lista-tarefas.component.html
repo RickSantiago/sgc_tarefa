@@ -44,33 +44,41 @@ fxLayoutAlign="center space-around"
     class="mat-elevation-z2  btn-tarefa"
 
   >
-    <mat-card-title class="mb-2 text-capitalize">
-      <mat-icon
-        (click)="isAtivo = !isAtivo"
-        *ngIf="task.prazo"
-        matTooltip="Encerra em: {{ task.prazo }} {{ task.horaPrazo }}"
-        matSuffix
-        class="icon-resp"
-      >
-        {{ task.prazo ? "today" : "" }}
-      </mat-icon>
-      <mat-icon
-        *ngIf="task.rotina"
-        matTooltip="É uma tarefa de Rotina"
-        class="icon-resp"
-        matSuffix
-        color="{{ task.rotina ? 'primary' : 'warn' }}"
-      >
-        {{ task.rotina ? "loop" : "" }}
-      </mat-icon>
+  <mat-card-title class="mb-2 text-capitalize">
+    <div id="titulo-task" class="container-task-header">
+      <div class="container-titulo">
+        <mat-icon
+          (click)="isAtivo = !isAtivo"
+          *ngIf="task.prazo"
+          matTooltip="Encerra em: {{ task.prazo }} {{
+            task.horaPrazo
+          }}"
+          matSuffix
+          class="icon-resp"
+        >
+          {{ task.prazo ? "today" : "" }}
+        </mat-icon>
 
-      {{ task.titulo }}
-      <small style="color:grey; font-weight: lighter;">
-        ({{ task.atividades.length }})
-      </small>
+        <mat-icon
+          *ngIf="task.rotina"
+          matTooltip="É uma tarefa de Rotina"
+          class="icon-resp"
+          matSuffix
+          color="{{ task.rotina ? 'primary' : 'warn' }}"
+        >
+          {{ task.rotina ? "loop" : "" }}
+        </mat-icon>
 
-      <small class="f-right"> #{{ task.id }} </small>
-    </mat-card-title>
+        <span class="titulo-task">
+          {{ task.titulo }}
+        </span>
+      </div>
+
+      <div class="container-qtd-atv">
+        <small> #{{ task.id }} </small>
+      </div>
+    </div>
+  </mat-card-title>
     <mat-card-subtitle>
 
     </mat-card-subtitle>
@@ -170,7 +178,7 @@ fxLayoutAlign="center space-around"
   </mat-card>
   <!-- FIM DO PRIMEIRO CARD COM INFORMACOES INICIAIS -->
 
-  <div class="mt-5-real">
+  <div class="">
 
 
     <!-- <button
@@ -194,36 +202,40 @@ fxLayoutAlign="center space-around"
             <mat-card
               class="mat-elevation-z0  btn-tarefa mb-1 hover-action ajst-padding"
             >
-              <mat-checkbox
-                class="checkbox-text"
-                color="primary"
-                *ngIf="atv.finalizada"
-                style="text-decoration: line-through;"
-                name="atividade"
-                checked="{{ atv.finalizada }}"
-                value="{{ atv.id }}"
-                (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
-                ><strong
-                  class="text-upper"
-                  matTooltip="{{ atv.responsavel }}"
-                  matTooltipPosition="above"
-                >
-                  {{ atv.descricao }}
-                </strong>
-              </mat-checkbox>
+            <mat-checkbox
+            class="checkbox-text"
+            color="primary"
+            *ngIf="atv.finalizada"
+            style="text-decoration: line-through;"
+            name="atividade"
+            checked="{{ atv.finalizada }}"
+            value="{{ atv.id }}"
+            (click)="desmarcaAtividadeCompleta(atv.id, task.id)"
+            >
 
-              <mat-checkbox
-                *ngIf="!atv.finalizada"
-                name="atividade"
-                value="{{ atv.id }}"
-                (click)="marcaAtividadeCompleta(atv.id, task.id)"
-                class="text-upper checkbox-text"
-
+            <div>
+              <strong
+                class="text-upper wh-space"
+                matTooltip="{{ atv.responsavel }}"
+                matTooltipPosition="above"
               >
-                <span>
-                  {{ atv.descricao }}
-                </span>
-              </mat-checkbox>
+                {{ atv.descricao }}
+              </strong>
+            </div>
+
+          </mat-checkbox>
+
+          <mat-checkbox
+            *ngIf="!atv.finalizada"
+            name="atividade"
+            value="{{ atv.id }}"
+            (click)="marcaAtividadeCompleta(atv.id, task.id)"
+            class="text-upper checkbox-text"
+          >
+            <span class="wh-space">
+              {{ atv.descricao }}
+            </span>
+          </mat-checkbox>
               <!-- <small *ngIf="atv.responsavel">
                 - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
               </small> -->
