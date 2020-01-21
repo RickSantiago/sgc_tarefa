@@ -119,31 +119,37 @@
 
             <mat-card class="mat-elevation-z2  btn-tarefa">
               <mat-card-title class="mb-2 text-capitalize">
-                <mat-icon
-                  (click)="isAtivo = !isAtivo"
-                  *ngIf="task.prazo"
-                  matTooltip="Encerra em: {{ task.prazo }} {{ task.horaPrazo }}"
-                  matSuffix
-                  class="icon-resp"
-                >
-                  {{ task.prazo ? "today" : "" }}
-                </mat-icon>
-                <mat-icon
-                  *ngIf="task.rotina"
-                  matTooltip="É uma tarefa de Rotina"
-                  class="icon-resp"
-                  matSuffix
-                  color="{{ task.rotina ? 'primary' : 'warn' }}"
-                >
-                  {{ task.rotina ? "loop" : "" }}
-                </mat-icon>
+                <div id="titulo-task" class="pt-1rem">
+                  <mat-icon
+                    (click)="isAtivo = !isAtivo"
+                    *ngIf="task.prazo"
+                    matTooltip="Encerra em: {{ task.prazo }} {{
+                      task.horaPrazo
+                    }}"
+                    matSuffix
+                    class="icon-resp"
+                  >
+                    {{ task.prazo ? "today" : "" }}
+                  </mat-icon>
+                  <mat-icon
+                    *ngIf="task.rotina"
+                    matTooltip="É uma tarefa de Rotina"
+                    class="icon-resp"
+                    matSuffix
+                    color="{{ task.rotina ? 'primary' : 'warn' }}"
+                  >
+                    {{ task.rotina ? "loop" : "" }}
+                  </mat-icon>
 
-                {{ task.titulo }}
-                <small style="color:grey; font-weight: lighter;">
-                  ({{ task.atividades.length }})
-                </small>
+                 <span class="titulo-task">
+                  {{ task.titulo }}
+                 </span>
 
-                <small class="f-right"> #{{ task.id }} </small>
+                  <!-- <small style="color:grey; font-weight: lighter;">
+                        ({{ task.atividades.length }})
+                      </small> -->
+                  <small class="f-right"> #{{ task.id }} </small>
+                </div>
               </mat-card-title>
               <mat-card-subtitle> </mat-card-subtitle>
               <mat-card-content>
@@ -256,9 +262,13 @@
                 class="mat-elevation-z0 clearfix-right"
               >
                 <mat-expansion-panel-header>
-                  <strong>
-                    Ver todas as atividades
-                  </strong>
+
+                    <strong>
+                      Ver todas as atividades
+                    </strong>
+                    <span class="qtd-atv">
+                      {{ task.atividades.length }}
+                  </span>
                 </mat-expansion-panel-header>
                 <mat-panel-description class="no-margin-r">
                   <div
@@ -379,7 +389,7 @@
           >
         </ng-template>
         <h1 class="text-center mt-5" *ngIf="tarefasAtribuidas.length == 0">
-          Não encontramos tarefas.
+          Nenhuma atividade pendente para você.
         </h1>
         <app-lista-tarefas
           *ngIf="tarefasAtribuidas.length != 0"
@@ -397,7 +407,7 @@
           >
         </ng-template>
         <h1 class="text-center mt-5" *ngIf="tarefasParticipo.length == 0">
-          Não encontramos tarefas.
+          Você não está participando de nenhuma tarefa no momento.
         </h1>
         <app-tarefa-participante
           *ngIf="tarefasParticipo.length != 0"
@@ -413,7 +423,7 @@
           >
         </ng-template>
         <h1 class="text-center mt-5" *ngIf="tarefasConcluidas.length == 0">
-          Não encontramos tarefas.
+          Por enquanto não temos tarefas concluidas.
         </h1>
         <app-tarefa-partipante-concluida
           *ngIf="tarefasConcluidas.length != 0"

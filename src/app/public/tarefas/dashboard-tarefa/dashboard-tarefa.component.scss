@@ -17,12 +17,12 @@ body {
   // overflow-y: hidden;
 }
 
-.header{
+.header {
   display: flex;
   flex-wrap: wrap;
 }
 
-.container-button{
+.container-button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -146,8 +146,8 @@ body {
     background-color: #c7baba;
   }
 }
-.checkbox-text{
-  label{
+.checkbox-text {
+  label {
     white-space: unset !important;
   }
 }
@@ -188,7 +188,7 @@ body {
   margin-top: 10vh !important;
 }
 
-.mt-5-real{
+.mt-5-real {
   margin-top: 5vh !important;
 }
 .pb-2 {
@@ -529,19 +529,36 @@ mat-tab-label {
 .clearfix-right {
   clear: right;
 }
-.no-margin-r{
-  margin-right: 0!important;
+.no-margin-r {
+  margin-right: 0 !important;
 }
 
-.mat-expansion-panel-body{
-  padding: 0.2em 0.2em!important;
+.mat-expansion-panel-body {
+  padding: 0.2em 0.2em !important;
 }
 
-.ajst-padding{
- padding: 16px 16px 0px 16px !important;
+.ajst-padding {
+  padding: 16px 16px 0px 16px !important;
 }
 
-.btn-remove-part:hover{
+.btn-remove-part:hover {
   color: rgb(192, 20, 20) !important;
   opacity: 1 !important;
+}
+
+.qtd-atv {
+  background-color: #5a5a5a;
+  margin-left: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 22px;
+  font-weight: bold;
+  color: white;
+  font-size: 12px;
+}
+
+.titulo-task{
+  font-size: 20px;
 }

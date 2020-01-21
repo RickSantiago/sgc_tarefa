@@ -15,6 +15,7 @@ export class ListaTarefasComponent implements OnInit {
   public userSession: any;
   public idPessoaSession: string;
   public isErrorUsuario: boolean;
+  public isAtivo:boolean = true;
   public hoje:string = new Date().toLocaleDateString();
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
@@ -33,10 +34,10 @@ export class ListaTarefasComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasAtividadeDoParticipante();
 
-    setInterval(() => {
-      console.log('Atualizou')
-      this.retornaTarefasAtividadeDoParticipante();
-    }, 10000);
+    // setInterval(() => {
+    //   console.log('Atualizou')
+    //   this.retornaTarefasAtividadeDoParticipante();
+    // }, 10000);
 
   }
 
