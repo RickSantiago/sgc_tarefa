@@ -71,7 +71,7 @@
     [ngStyle.gt-sm]="{ height: '88.2vh' }"
   >
 
-    <mat-tab-group #tabRef mat-align-tabs="center" color="accent">
+    <mat-tab-group #tabRef mat-align-tabs="center" color="primary">
       <mat-tab style="opacity: 1 !important;">
         <ng-template matTabLabel id="tab1">
           <span
@@ -341,7 +341,7 @@
 
             <div class="mt-5-real">
 
-              
+
               <button
                 (click)="openDialogAtividade(task)"
                 mat-mini-fab
@@ -380,14 +380,14 @@
                             {{ atv.descricao }}
                           </strong>
                         </mat-checkbox>
-    
+
                         <mat-checkbox
                           *ngIf="!atv.finalizada"
                           name="atividade"
                           value="{{ atv.id }}"
                           (click)="marcaAtividadeCompleta(atv.id, task.id)"
                           class="text-upper checkbox-text"
-    
+
                         >
                           <span>
                             {{ atv.descricao }}
@@ -396,7 +396,7 @@
                         <!-- <small *ngIf="atv.responsavel">
                           - <strong>{{ atv.responsavel.split(" ")[0] }}</strong>
                         </small> -->
-    
+
                         <span *ngIf="!atv.finalizada" class="btn-atv-action">
                           <button
                             mat-icon-button
@@ -439,7 +439,7 @@
                   </mat-panel-description>
                 </mat-expansion-panel>
 
-              
+
               <!-- <button
                     mat-icon-button
                     class="f-right btn-add-atv"
@@ -460,7 +460,7 @@
                     </button> -->
 
 
-              
+
             </div>
           </div>
         </div>
