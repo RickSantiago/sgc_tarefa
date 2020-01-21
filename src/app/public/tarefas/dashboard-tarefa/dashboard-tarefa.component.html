@@ -239,6 +239,7 @@
                             (click)="removeParticipanteTarefa(part.id, task.id)"
                             matTooltip="Remover participante"
                             matTooltipPosition="above"
+                            class="btn-remove-part"
                           >
                             cancel
                           </mat-icon>
@@ -283,57 +284,6 @@
                   </mat-action-row>
                 </mat-expansion-panel>
 
-                <!--
-                  <div>
-                    <strong
-                      *ngIf="task.participantes.length != 0"
-                    >Participantes:
-                  </strong>
-                  <strong *ngIf="task.participantes.length == 0"
-                    >Sem participantes.
-                  </strong>
-                  <button
-                    mat-icon-button
-                    class="f-right btn-add-person mb-2"
-                    matTooltip="Adicionar participante(s)"
-                    (click)="openDialogParticipante(task.id)"
-                  >
-                    <mat-icon>group_add</mat-icon>
-                  </button>
-
-                  <mat-chip-list
-                    *ngIf="task.participantes.length != 0"
-                    #chipList
-                    aria-label="Selecionar participantes"
-                  >
-                    <mat-chip
-                      *ngFor="let part of task.participantes"
-                      class="bg-info"
-                      matTooltip="{{ part.nome }}"
-                    >
-                      {{ part.nome.split(" ")[0] }}
-                      <mat-icon
-                        matChipRemove
-                        *ngIf="removivel"
-                        (click)="removeParticipanteTarefa(part.id, task.id)"
-                        matTooltip="Remover participante"
-                        matTooltipPosition="above"
-                      >
-                        cancel
-                      </mat-icon>
-                    </mat-chip>
-                  </mat-chip-list>
-                  <mat-chip-list
-                    *ngIf="task.participantes.length == 0"
-                    #chipList
-                    aria-label="Selecionar participantes"
-                  >
-                    <mat-chip class="bg-danger">
-                      Você não adicionou participantes.
-                    </mat-chip>
-                  </mat-chip-list>
-                </div>
-              -->
               </mat-card-content>
               <!-- FIM DO CARD CONTENT ANTECIPADO -->
             </mat-card>
