@@ -11,7 +11,7 @@ import { CriaAtividadeComponent } from '../../tarefas/cria-atividade/cria-ativid
 import { MatDialog } from '@angular/material/dialog';
 import { TarefasService } from './../../../services/tarefas.service';
 import { AuthService } from './../../../services/auth.service';
-import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewEncapsulation, Output, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
@@ -19,6 +19,7 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatSn
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { EventEmitter } from 'protractor';
 
 
 @Component({
@@ -68,29 +69,11 @@ export class DashboardTarefaComponent implements OnInit {
   public hojeHora: string = new Date().toLocaleString();
 
   public routeId;
-  public isAtivo:boolean = true;
+  public isAtivo: boolean = true;
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
 
-  fabButtons = [
-    {
-      icon: 'timeline'
-    },
-    {
-      icon: 'view_headline'
-    },
-    {
-      icon: 'room'
-    },
-    {
-      icon: 'lightbulb_outline'
-    },
-    {
-      icon: 'lock'
-    }
-  ];
-  buttons = [];
-  fabTogglerState = 'inactive';
+  // @Input() tabsAtiva: any;
 
   constructor(
 
@@ -103,37 +86,14 @@ export class DashboardTarefaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
 
-  ) {}
+  ) { }
 
-  clique(event){
-    console.log("Clicado");
-    console.log(event);
+  // setTabChamada(event) {
+  //   this.tabsAtiva = event
+  //   console.log(event);
 
-  }
+  // }
 
-  showItems() {
-    this.fabTogglerState = 'active';
-    this.buttons = this.fabButtons;
-  }
-
-  hideItems() {
-    this.fabTogglerState = 'inactive';
-    this.buttons = [];
-  }
-
-  onToggleFab(event, idTask) {
-    // console.log('EVENT ', event.target);
-    console.log('EVENT id ', event.target.id);
-    console.log('ID TASK ', idTask);
-
-      this.buttons.length ? this.hideItems() : this.showItems();
-
-
-    // if(event.target.id == idTask){
-    //   this.buttons.length ? this.hideItems() : this.showItems();
-    // }
-
-  }
 
   ngOnInit() {
 
@@ -637,7 +597,7 @@ export class DashboardTarefaComponent implements OnInit {
     location.reload();
   }
 
-  recarregarPage(){
+  recarregarPage() {
     location.reload(true);
   }
 

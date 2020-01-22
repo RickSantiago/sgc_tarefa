@@ -45,7 +45,7 @@
       #tabRef
       mat-align-tabs="center"
       color="primary"
-      (selectedTabChange)="clique($event)"
+      (selectedIndexChange)="setTabChamada($event)"
     >
       <mat-tab style="opacity: 1 !important;">
         <ng-template matTabLabel id="tab1">
@@ -255,9 +255,7 @@
                 class="mat-elevation-z0 clearfix-right"
               >
                 <mat-expansion-panel-header>
-
                   <div class="container-atv">
-
                     <div class="container-title-atv">
                       <strong>
                         Ver todas as atividades
@@ -269,19 +267,16 @@
 
                     <div class="container-add-atv">
                       <button
-                      matTooltip="Adicionar atividade"
-                      matTooltipPosition="above"
+                        matTooltip="Adicionar atividade"
+                        matTooltipPosition="above"
                         (click)="openDialogAtividade(task)"
                         mat-raised-button
                         color="primary"
                       >
-
                         <mat-icon matPrefix>post_add</mat-icon>
                       </button>
                     </div>
                   </div>
-
-
                 </mat-expansion-panel-header>
                 <mat-panel-description class="no-margin-r">
                   <div

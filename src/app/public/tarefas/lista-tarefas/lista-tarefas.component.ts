@@ -34,10 +34,9 @@ export class ListaTarefasComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasAtividadeDoParticipante();
 
-    // setInterval(() => {
-    //   console.log('Atualizou')
-    //   this.retornaTarefasAtividadeDoParticipante();
-    // }, 10000);
+    setInterval(() => {
+      this.retornaTarefasAtividadeDoParticipante();
+    }, 10000);
 
   }
 
