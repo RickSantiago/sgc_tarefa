@@ -116,13 +116,13 @@ export class DashboardTarefaComponent implements OnInit {
 
     this.recebeSessao();
 
-    // setTimeout(() => {
+    setTimeout(() => {
       this.retornaUsuario();
       this.retornaTarefasDoTitular();
       this.retornaTarefasAtividadeDoParticipante();
       this.retornaTarefasParticipanteLogado();
       this.retornaTarefasParticipanteConcluidas();
-    // }, 500)
+    }, 500)
 
   }
 
