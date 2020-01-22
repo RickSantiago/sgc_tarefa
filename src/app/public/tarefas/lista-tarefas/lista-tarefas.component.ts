@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TarefasService } from 'src/app/services/tarefas.service';
 import { AtividadesService } from 'src/app/services/atividades.service';
@@ -34,9 +34,9 @@ export class ListaTarefasComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasAtividadeDoParticipante();
 
-    setInterval(() => {
-      this.retornaTarefasAtividadeDoParticipante();
-    }, 10000);
+    // setInterval(() => {
+    //   this.retornaTarefasAtividadeDoParticipante();
+    // }, 10000);
 
   }
 

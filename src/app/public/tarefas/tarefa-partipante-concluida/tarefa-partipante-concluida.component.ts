@@ -34,9 +34,9 @@ export class TarefaPartipanteConcluidaComponent implements OnInit {
     this.retornaUsuario();
     this.retornaTarefasParticipanteConcluidas();
 
-    setInterval(() => {
-      this.retornaTarefasParticipanteConcluidas();
-    }, 10000);
+    // setInterval(() => {
+    //   this.retornaTarefasParticipanteConcluidas();
+    // }, 10000);
 
   }
 

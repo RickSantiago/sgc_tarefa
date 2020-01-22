@@ -15,7 +15,6 @@ export class AuthService {
 
 
   recebeDadosLogin(routeId: number): Observable<any> {
-    console.log('USER ROUTE ID ', routeId);
 
     return this.http.post<any>(`${this.envService.API_URL}autenticacao/retornaDadosSessao`, {
       idPessoa: routeId

@@ -164,7 +164,8 @@
 
                 <mat-expansion-panel #panelTaks class="mat-elevation-z0">
                   <mat-expansion-panel-header>
-                    Mais opções
+                    <mat-icon matPrefix style="font-size: 22px;">emoji_objects</mat-icon>
+                    <span style="font-weight: 500;">Mais opções</span>
                   </mat-expansion-panel-header>
                   <mat-panel-description>
                     <div>
@@ -393,7 +394,7 @@
             matBadge="{{ tarefasAtribuidas.length }}"
             matBadgeOverlap="false"
             matBadgeColor="bg-info"
-            >Atividades Pendentes</span
+            >Tarefas Pendentes</span
           >
         </ng-template>
         <h1 class="text-center mt-5" *ngIf="tarefasAtribuidas.length == 0">

@@ -1,3 +1,5 @@
+import { TarefaPartipanteConcluidaComponent } from './../tarefa-partipante-concluida/tarefa-partipante-concluida.component';
+import { TarefaParticipanteComponent } from './../tarefa-participante/tarefa-participante.component';
 import { ExcluiTarefaComponent } from './../exclui-tarefa/exclui-tarefa.component';
 import { EditaTarefaComponent } from './../edita-tarefa/edita-tarefa.component';
 import { ExcluiAtividadeComponent } from './../exclui-atividade/exclui-atividade.component';
@@ -50,6 +52,9 @@ export class DashboardTarefaComponent implements OnInit {
 
   @ViewChild('participanteInput', { static: false }) participanteInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
+  @ViewChild(ListaTarefasComponent, { static: false }) private atividadesPendentes: ListaTarefasComponent;
+  @ViewChild(TarefaParticipanteComponent, {static: false}) private tarefaParticipante: TarefaParticipanteComponent;
+  @ViewChild(TarefaPartipanteConcluidaComponent, {static: false}) private tarefaConcluida: TarefaPartipanteConcluidaComponent;
 
   tituloTarefa: string;
   descricaoTarefa: string;
@@ -73,7 +78,7 @@ export class DashboardTarefaComponent implements OnInit {
 
   private mediaMatch: MediaQueryList = matchMedia("(max-width:950px)");
 
-  // @Input() tabsAtiva: any;
+  @Output() tabsAtiva: any;
 
   constructor(
 
@@ -88,37 +93,36 @@ export class DashboardTarefaComponent implements OnInit {
 
   ) { }
 
-  // setTabChamada(event) {
-  //   this.tabsAtiva = event
-  //   console.log(event);
 
-  // }
+  setTabChamada(event) {
 
+    if (event == 0) {
+      this.ngOnInit();
+    }
+    if (event == 1) {
+      this.atividadesPendentes.ngOnInit();
+     }
+    if (event == 2) {
+      this.tarefaParticipante.ngOnInit()
+    }
+    if (event == 3) {
+       this.tarefaConcluida.ngOnInit();
+      }
+
+  }
 
   ngOnInit() {
 
-    // console.log(location.pathname.split('/')[2]);
 
-
-    // this.verificaLogin();
     this.recebeSessao();
 
-    setTimeout(() => {
+    // setTimeout(() => {
       this.retornaUsuario();
       this.retornaTarefasDoTitular();
       this.retornaTarefasAtividadeDoParticipante();
       this.retornaTarefasParticipanteLogado();
       this.retornaTarefasParticipanteConcluidas();
-    }, 500)
-
-
-
-    // setInterval(() => {
-    //   console.log('Atualizou')
-    //   this.retornaTarefasDoTitular();
-    // }, 5000);
-
-
+    // }, 500)
 
   }
 
@@ -126,15 +130,6 @@ export class DashboardTarefaComponent implements OnInit {
     return this.mediaMatch.matches;
   }
 
-  verificaTabs(tabSelecionada) {
-    console.log(tabSelecionada);
-    if (tabSelecionada == 0) {
-
-    }
-    if (tabSelecionada == 1) {
-
-    }
-  }
 
   recebeSessao() {
 
@@ -205,7 +200,6 @@ export class DashboardTarefaComponent implements OnInit {
   }
 
   retornaTarefasDoTitular() {
-    // console.log('To aqui');
 
     this.tarefasService
       .retornaTarefasTitular(this.idPessoaSession).subscribe(
@@ -296,6 +290,7 @@ export class DashboardTarefaComponent implements OnInit {
       data => {
         // console.log('Finalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
+        this.ngOnInit();
       },
       error => {
         console.log('Erro ao finalizar atividade: ', error, ' ', idAtividade)
@@ -308,6 +303,7 @@ export class DashboardTarefaComponent implements OnInit {
       data => {
         // console.log('Desfinalizada com sucesso: ', idAtividade, ' ', data)
         this.retornaTarefasDoTitular();
+        this.ngOnInit();
       },
       error => {
         console.log('Erro ao desfinalizar atividade: ', error, ' ', idAtividade)
@@ -548,8 +544,6 @@ export class DashboardTarefaComponent implements OnInit {
 
     })
   }
-
-
 
   openDialogParticipante(idTarefa) {
 
