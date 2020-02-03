@@ -5,7 +5,6 @@ import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
