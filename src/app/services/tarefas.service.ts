@@ -20,28 +20,28 @@ export class TarefasService {
 
 
   retornaTarefasTitular(idPessoa): Observable<any> {
-    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefasTitular?idPessoa=${idPessoa}`)
+    return this.http.post(`${this.envService.API_URL_TAREFA}retornaTarefasTitular`,{idPessoa : idPessoa})
       .pipe(
         tap(response => response)
       )
   }
 
   retornaTarefasParticipante(idPessoa): Observable<any> {
-    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaResponsavel?idPessoa=${idPessoa}`)
+    return this.http.post(`${this.envService.API_URL_TAREFA}retornaTarefaResponsavel`,{idPessoa : idPessoa})
       .pipe(
         tap(response => response)
       )
   }
 
   retornaTarefasPessoaParticipa(idPessoa): Observable<any> {
-    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaParticipantePessoaLogada?idPessoa=${idPessoa}`)
+    return this.http.post(`${this.envService.API_URL_TAREFA}retornaTarefaParticipantePessoaLogada`,{idPessoa : idPessoa})
       .pipe(
         tap(response => response)
       )
   }
 
   retornaTarefasConcluidas(idPessoa): Observable<any> {
-    return this.http.get(`${this.envService.API_URL_TAREFA}retornaTarefaParticipanteConcluida?idPessoa=${idPessoa}`)
+    return this.http.post(`${this.envService.API_URL_TAREFA}retornaTarefaParticipanteConcluida`,{idPessoa : idPessoa})
       .pipe(
         tap(response => response)
       )
