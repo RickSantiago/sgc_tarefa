@@ -191,13 +191,13 @@
                       >
                         <mat-chip
                           *ngFor="let part of task.participantes"
-                          class="bg-info"
+                          class="bg-info text-capitalize"
                           matTooltip="{{ part.nome }}"
                         >
                           {{ part.nome.split(" ")[0] }}
                           <mat-icon
                             matChipRemove
-                            *ngIf="removivel"
+                            *ngIf="task.idTitular != part.id"
                             (click)="removeParticipanteTarefa(part.id, task.id)"
                             matTooltip="Remover participante"
                             matTooltipPosition="above"
